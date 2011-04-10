@@ -11,13 +11,13 @@ package Sintactico.Arbol;
  */
 public class AST_TypeName_Lista extends AST_TypeName {
 
-    String id;
-    AST_TypeName sig;
+    public AST_TypeName N;
+    public AST_TypeName ext;
 
-    public AST_TypeName_Lista(String id, AST_TypeName sig) {
-        this.id = id;
-        this.sig = sig;
+    public AST_TypeName_Lista() {
     }
+
+    
 
 
 }

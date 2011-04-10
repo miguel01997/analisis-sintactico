@@ -11,7 +11,7 @@ package Sintactico.Arbol;
  */
 public class AST_Type_T extends AST_Type {
 
-    enum Tipos {TintegerP, Tboolean, Tinteger};
-    Tipos tipo;
+    public enum Tipos {TintegerP, Tboolean, Tinteger};
+    public Tipos tipo;
 
 }

@@ -11,6 +11,12 @@ package Sintactico.Arbol;
  */
 public class AST_ExpList_Lista extends AST_ExpList {
 
-    AST_Exp sig;
+    public AST_ExpList sig;
+    public AST_ExpList N;
+
+    public AST_ExpList_Lista() {
+    }
+    
+    
 
 }

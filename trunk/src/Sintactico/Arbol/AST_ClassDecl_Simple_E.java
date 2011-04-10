@@ -12,8 +12,11 @@ package Sintactico.Arbol;
 public class AST_ClassDecl_Simple_E extends AST_ClassDecl_Simple {
 
     
-    String extends_id;
-    
+    public String extends_id;
 
+    public AST_ClassDecl_Simple_E() {
+    }
+    
+    
 
 }

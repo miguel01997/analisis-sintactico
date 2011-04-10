@@ -12,11 +12,12 @@ package Sintactico.Arbol;
 public class AST_Op {
 
     public static enum Operadores {mas, menos, multiplicacion, division, diferente, igual, menor, mayor, menorIgual, mayorIgual, o, y};
-    Operadores N_Operador;
+    public Operadores N_Operador;
 
-    public AST_Op(Operadores N_Operador) {
-        this.N_Operador = N_Operador;
+    public AST_Op() {
     }
+
+    
 
 
 }

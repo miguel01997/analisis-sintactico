@@ -12,7 +12,10 @@ package Sintactico.Arbol;
 public class AST_ClassDecl_Simple_I extends AST_ClassDecl_Simple {
 
     
-    String import_id;
+    public String import_id;
+
+    public AST_ClassDecl_Simple_I() {
+    }
     
 
 

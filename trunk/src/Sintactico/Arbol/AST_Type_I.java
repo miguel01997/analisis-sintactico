@@ -9,7 +9,11 @@ package Sintactico.Arbol;
  *
  * @author lidier
  */
-public class AST_Type_I {
-    String id;
+public class AST_Type_I extends AST_Type{
+    public String id;
+
+    public AST_Type_I() {
+    }
+    
 
 }
