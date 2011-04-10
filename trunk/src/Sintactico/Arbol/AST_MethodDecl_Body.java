@@ -9,6 +9,6 @@ package Sintactico.Arbol;
  *
  * @author lidier
  */
-public class AST_MethodDecl_Body {
+public abstract class AST_MethodDecl_Body {
 
 }

@@ -1,5 +1,5 @@
 package Sintactico.Parser;
-
+import javax.swing.JOptionPane;
 import Sintactico.*;
 import Sintactico.Scanner.Scanner;
 import java.io.IOException;
@@ -61,7 +61,7 @@ public class Parser
     else
     {
         System.out.println("Compilación Exitosa");
-        //throw new MyException("Compilación Exitosa", 1, "Enhorabuena");
+        JOptionPane.showMessageDialog(null,"Compilación Exitosa","Enhorabuena", 1);
         return arbol;
     }
 }
@@ -330,7 +330,7 @@ public class Parser
   
   public AST_VarDecl parseVardecl() throws MyException
   {
-      AST_VarDecl v = new AST_VarDecl();
+      AST_VarDecl v = null;
       AST_VarDecl_Simple vs = new AST_VarDecl_Simple();
       vs.N_Type=parseType();
       vs.id = token_actual.lexema.toString();
@@ -435,6 +435,7 @@ public class Parser
   public AST_MethodDecl parseMethoddecl(String id) throws MyException
   {
 
+      AST_Type tipo = null;
       AST_MethodDecl Md = null;
       AST_FormalList Fl = null;
       AST_MethodDecl_Body Mbody = null;
@@ -444,40 +445,51 @@ public class Parser
       
       AST_Exp returnExp = null;
 
-      boolean Tvoid = true;
       String idstatement = "";
+      String idlocal="";
 
-
+      if (!"".equals(id))
+      {
+          AST_Type_I t = new AST_Type_I();
+          t.id=id;
+          tipo = t;
+      }
 
 
       if (!methodesid)
       {
       if ((token_actual.tipo == Sym.Tint)||(token_actual.tipo == Sym.Tboolean))
       {
-          parseType();
-
+          tipo =parseType();
+          
       }
       else if (token_actual.tipo == Sym.Tvoid)
           sigToken();
       else
           throw new MyException("Error en el analisis sintactico. Se esperaba un void, boolean, int o ID, en su lugar viene " + errores(token_actual.tipo) + " en fila " + token_actual.fila + " y columna " + token_actual.columna + ".");
       }
+      idlocal=token_actual.lexema.toString();
       accept(Sym.Tidentifier);
       accept(Sym.TparentesisInicio);
       Fl = parseFormallist();
       accept(Sym.TparentesisFinal);
       accept(Sym.TllaveInicio);
 
-      
 
       while ((token_actual.tipo == Sym.Tint) || (token_actual.tipo == Sym.Tboolean) || (token_actual.tipo == Sym.Tidentifier))
       {
+          AST_VarDecl temp = null;
          if (token_actual.tipo == Sym.Tidentifier)
          {
+             AST_VarDecl_Simple vst = new AST_VarDecl_Simple();
              idstatement=token_actual.lexema.toString();
+             AST_Type_I ti = new AST_Type_I();
+             ti.id=idstatement;
+             vst.N_Type = ti;
              sigToken();
              if (token_actual.tipo == Sym.Tidentifier)
              {
+                 vst.id=token_actual.lexema.toString();
                  sigToken();
                  accept(Sym.TpuntoYcoma);
              }
@@ -486,9 +498,21 @@ public class Parser
                  methodesid2 = true;
                  break;
              }
+             temp = vst;
          }
          else
-             parseVardecl();
+         {
+             temp = parseVardecl();
+         }
+         if (BVD == null)
+         {
+             BVD=temp;
+         }
+         else
+         {
+         AST_VarDecl_Lista l = new AST_VarDecl_Lista(BVD, temp);
+         BVD = l;
+         }
       }
 
       while ((token_actual.tipo != Sym.Treturn) && (token_actual.tipo != Sym.TllaveFinal))
@@ -510,47 +534,48 @@ public class Parser
       }
       accept(Sym.TllaveFinal);
 
-
-      if (Tvoid)
+      if (BVD == null)
       {
-          if (returnExp == null)
+          if (BSD==null)
           {
-              AST_MethodDecl_Void m = new AST_MethodDecl_Void();
-              m.N_FormalList = Fl;
-
-
-              Md = m;
-
+              
           }
           else
           {
-              AST_MethodDecl_Void_R m = new AST_MethodDecl_Void_R();
-              m.N_FormalList = Fl;
-
-              Md = m;
-
+              AST_MethodDecl_Body_S mbs = new AST_MethodDecl_Body_S(BSD);
+              Mbody = mbs;
           }
       }
- else
+      else
+      {
+          AST_MethodDecl_Body_VS mbvs = new AST_MethodDecl_Body_VS(BVD, BSD);
+              Mbody = mbvs;
+      }
+      if (tipo == null)
       {
           if (returnExp == null)
           {
-              AST_MethodDecl_Type m = new AST_MethodDecl_Type();
-              m.N_FormalList = Fl;
-
-              Md = m;
+              AST_MethodDecl_Void mv = new AST_MethodDecl_Void(idlocal, Fl, Mbody);
+              Md=mv;
           }
           else
           {
-              AST_MethodDecl_Type_R m = new AST_MethodDecl_Type_R();
-              m.N_FormalList = Fl;
-
-              Md = m;
-
+              AST_MethodDecl_Void_R mvr = new AST_MethodDecl_Void_R(idlocal, Fl, Mbody, returnExp);
+              Md=mvr;
           }
       }
-
-
+      else
+          if (returnExp == null)
+          {
+              AST_MethodDecl_Type mt = new AST_MethodDecl_Type(idlocal, Fl, Mbody, tipo);
+              Md=mt;  
+                      
+          }
+          else
+          {
+              AST_MethodDecl_Type_R mtr = new AST_MethodDecl_Type_R(idlocal, Fl, Mbody, tipo, returnExp);
+              Md=mtr;
+          }
       return Md;
   }
     
