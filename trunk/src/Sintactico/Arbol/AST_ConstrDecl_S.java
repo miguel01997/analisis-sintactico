@@ -11,6 +11,6 @@ package Sintactico.Arbol;
  */
 public class AST_ConstrDecl_S extends AST_ConstrDecl {
 
-    AST_Statement N_Statement;
+    public AST_Statement N_Statement;
 
 }

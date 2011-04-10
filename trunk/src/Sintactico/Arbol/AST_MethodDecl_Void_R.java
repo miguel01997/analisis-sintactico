@@ -9,8 +9,8 @@ package Sintactico.Arbol;
  *
  * @author lidier
  */
-public abstract class AST_Statement {
+public class AST_MethodDecl_Void_R extends AST_MethodDecl{
 
-
+    AST_Exp R_Exp;
 
 }

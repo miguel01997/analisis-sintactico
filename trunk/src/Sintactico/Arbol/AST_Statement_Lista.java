@@ -9,9 +9,13 @@ package Sintactico.Arbol;
  *
  * @author lidier
  */
-public class AST_MethodDecl_Type extends AST_MethodDecl {
+public class AST_Statement_Lista extends AST_Statement {
 
-    AST_Type N_Type;
+    public AST_Statement N;
+    public AST_Statement extN;
+
+    public AST_Statement_Lista() {
+    }
 
     
 

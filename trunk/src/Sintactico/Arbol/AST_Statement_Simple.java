@@ -9,8 +9,8 @@ package Sintactico.Arbol;
  *
  * @author lidier
  */
-public abstract class AST_Statement {
+public class AST_Statement_Simple extends AST_Statement {
 
-
+    
 
 }

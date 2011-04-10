@@ -11,5 +11,5 @@ package Sintactico.Arbol;
  */
 public class AST_ConstrDecl_V extends AST_ConstrDecl {
 
-    AST_VarDecl N_VarDecl;
+    public AST_VarDecl N_VarDecl;
 }
