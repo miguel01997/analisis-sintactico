@@ -11,7 +11,18 @@ package Sintactico.Arbol;
  */
 public class AST_BodyDecl_Lista extends AST_BodyDecl{
 
-    AST_BodyDecl_Simple N_BodyDecl;
+    AST_BodyDecl N_BodyDecl;
     AST_BodyDecl sig;
+
+    public AST_BodyDecl_Lista() {
+    }
+
+    public AST_BodyDecl_Lista(AST_BodyDecl N_BodyDecl, AST_BodyDecl sig) {
+        this.N_BodyDecl = N_BodyDecl;
+        this.sig = sig;
+    }
+
+
+    
 
 }
