@@ -17,6 +17,13 @@ public class AST_Exp_Terminal extends AST_Exp {
     public AST_Exp_Terminal() {
     }
 
+    public AST_Exp_Terminal(AST_ExpSimpl N_ExpSimpl, AST_Exp_TerminalBody N_Body) {
+        this.N_ExpSimpl = N_ExpSimpl;
+        this.N_Body = N_Body;
+    }
+
+
+
     
 
 }

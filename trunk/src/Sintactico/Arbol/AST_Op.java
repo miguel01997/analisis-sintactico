@@ -11,8 +11,10 @@ package Sintactico.Arbol;
  */
 public class AST_Op {
 
-    public static enum Operadores {mas, menos, multiplicacion, division, diferente, igual, menor, mayor, menorIgual, mayorIgual, o, y};
-    public Operadores N_Operador;
+    //public static enum Operadores {mas, menos, multiplicacion, division, diferente, igual, menor, mayor, menorIgual, mayorIgual, o, y};
+    //public Operadores N_Operador;
+
+    public int Num_Op;
 
     public AST_Op() {
     }
