@@ -231,7 +231,7 @@ public class Parser
     accept(Sym.Tidentifier);  //Esta linea faltaba, se tiene que aceptar un identificador
     accept(Sym.TparentesisFinal);
     accept(Sym.TllaveInicio);
-    M.N_Statement = parseStatement();
+    M.N_Statement = parseStatement("");
     accept(Sym.TllaveFinal);
     accept(Sym.TllaveFinal);
     return M;
@@ -374,11 +374,11 @@ public class Parser
       {
           if (S == null)
           {
-              S = parseStatement();
+              S = parseStatement("");
           }
           else
           {
-              AST_Statement t = parseStatement();
+              AST_Statement t = parseStatement("");
               AST_Statement_Lista l = new AST_Statement_Lista();
               l.N = S;
               l.extN = t;
@@ -445,7 +445,7 @@ public class Parser
       AST_Exp returnExp = null;
 
       boolean Tvoid = true;
-
+      String idstatement = "";
 
 
 
@@ -474,6 +474,7 @@ public class Parser
       {
          if (token_actual.tipo == Sym.Tidentifier)
          {
+             idstatement=token_actual.lexema.toString();
              sigToken();
              if (token_actual.tipo == Sym.Tidentifier)
              {
@@ -493,10 +494,10 @@ public class Parser
       while ((token_actual.tipo != Sym.Treturn) && (token_actual.tipo != Sym.TllaveFinal))
       {
           if (BSD == null)
-            BSD = parseStatement();
+            BSD = parseStatement(idstatement);
           else
           {
-              BSD = new AST_Statement_Lista(BSD, parseStatement());
+              BSD = new AST_Statement_Lista(BSD, parseStatement(idstatement));
           }
       }
       
@@ -621,61 +622,93 @@ public class Parser
       return t;
   }
   
-  public AST_Statement parseStatement() throws MyException
+  public AST_Statement parseStatement(String id) throws MyException
   {
-      if (methodesid2)
+      AST_Statement s = null;
+      if (!"".equals(id))
       {
-          methodesid2 = false;
           if ((token_actual.tipo == Sym.TcorcheteInicio)||(token_actual.tipo == Sym.Tigual))
           {
+              AST_Statement_Asign_Compuesto sac = null;
+              AST_Statement_Asign sa = null;
+
           if (token_actual.tipo == Sym.TcorcheteInicio)
           {
-            parseExp();
+            sac.N_Exp=parseExp();
+            sac.id = id;
             accept(Sym.TcorcheteFinal);
           }
+          
           accept(Sym.Tigual);
-          parseExp();
+          if (sac == null)
+          {
+          sa.N_Final_Exp=parseExp();
+          sa.id=id;
+          s = sa;
+          }
+          else
+          {
+            sac.N_Final_Exp=parseExp();
+          s = sac;  
+          }
           accept(Sym.TpuntoYcoma);
           }
           else
           {
+              AST_Statement_Id_Id SII = null;
+              SII.id=id;
               accept(Sym.Tpunto);
+              SII.id2=token_actual.lexema.toString();
               accept(Sym.Tidentifier);
               accept(Sym.TparentesisInicio);
-              parseExplist();
+              SII.Expl_final=parseExplist();
               accept(Sym.TparentesisFinal);
               accept(Sym.TpuntoYcoma);
+              s=SII;
           }
       }
       else if (token_actual.tipo == Sym.TllaveInicio)
       {
+          AST_Statement_Statement_Simple sss= null;
           sigToken();
           while (token_actual.tipo != Sym.TllaveFinal) // lo cambie por un while por q pueden haber n statements
-              parseStatement();
+          {
+              if (sss==null)
+              {
+                  sss.N_Statement =parseStatement("");
+              }
+              else
+              {
+              AST_Statement t =parseStatement("");
+              AST_Statement_Statement_Lista l = new AST_Statement_Statement_Lista(sss, t);
+              s=l;
+              }
+          }
+          if (sss==null)
+          s=sss;
           accept(Sym.TllaveFinal);
       }
       else if (token_actual.tipo == Sym.Tif)
       {
+          AST_Statement_If SI = null;
           sigToken();
           accept(Sym.TparentesisInicio);
-          parseExp();
+          SI.N_Exp=parseExp();
           accept(Sym.TparentesisFinal);
-          parseStatement();
-          //implementacion del else
-          if (token_actual.tipo == Sym.Telse)
-          {
+          SI.N_Statement=parseStatement("");
               sigToken();
-              parseStatement();
-          }
-          
+              SI.N_Else_Statement=parseStatement("");
+          s=SI;
       }
       else if (token_actual.tipo == Sym.Twhile)
       {
+          AST_Statement_While SW = null;
           sigToken();
           accept(Sym.TparentesisInicio);
-          parseExp();
+          SW.N_Exp=parseExp();
           accept(Sym.TparentesisFinal);
-          parseStatement();
+          SW.N_Statement=parseStatement("");
+          s=SW;
       }
       else if (token_actual.tipo == Sym.Tsystem)
       {
@@ -686,6 +719,7 @@ public class Parser
 
           if (token_actual.tipo == Sym.Tout)
           {
+              AST_Statement_SOP ssop = null;
               sigToken();
               if (token_actual.tipo != Sym.Tpunto)
                     throw new MyException("Error en el analisis sintactico. Se esperaba un statement, en su lugar viene " + errores(token_actual.tipo) + " en fila " + token_actual.fila + " y columna " + token_actual.columna + ".");
@@ -693,74 +727,101 @@ public class Parser
 
               accept(Sym.Tprintln);
               accept(Sym.TparentesisInicio);
-              parseExp();
+              ssop.N_Exp=parseExp();
               accept(Sym.TparentesisFinal);
               accept(Sym.TpuntoYcoma);
+              s=ssop;
           }
           else if (token_actual.tipo == Sym.Texit)
           {
+              AST_Statement_SE sse = null;
               sigToken();
               accept(Sym.TparentesisInicio);
+              sse.Int_Lit=Integer.parseInt(token_actual.lexema.toString());
               accept(Sym.TintLiteral);
           //acepte un numero cualquiera.... la otra manera era agregando el 0 por separado al SYM
                accept(Sym.TparentesisFinal);
                accept(Sym.TpuntoYcoma);
+               s=sse;
           }
           else throw new MyException("Error en el analisis sintactico. Se esperaba un statement, en su lugar viene " + errores(token_actual.tipo) + " en fila " + token_actual.fila + " y columna " + token_actual.columna + ".");
       }
       else if (token_actual.tipo == Sym.TparentesisInicio)
       {
+          AST_Statement_SIR ssir = null;
           sigToken();
-          parseType();
+          ssir.N_Type=parseType();
           accept(Sym.TparentesisFinal);
           accept(Sym.Tsystem);
           accept(Sym.Tpunto);
           accept(Sym.Tin);
           accept(Sym.Tpunto);
           accept(Sym.Tread);
-
           accept(Sym.TparentesisInicio);
           accept(Sym.TparentesisFinal);
           accept(Sym.TpuntoYcoma);
+          s=ssir;
       }
       else if (token_actual.tipo == Sym.Tidentifier)
       {
+          String id2 = token_actual.lexema.toString();
           sigToken();
           if ((token_actual.tipo == Sym.TcorcheteInicio)||(token_actual.tipo == Sym.Tigual))
           {
+              AST_Statement_Asign_Compuesto sac = null;
+              AST_Statement_Asign sa = null;
+
           if (token_actual.tipo == Sym.TcorcheteInicio)
           {
-            parseExp();
+            sac.N_Exp=parseExp();
+            sac.id = id2;
             accept(Sym.TcorcheteFinal);
           }
           accept(Sym.Tigual);
-          parseExp();
+          if (sac == null)
+          {
+          sa.N_Final_Exp=parseExp();
+          sa.id=id2;
+          s = sa;
+          }
+          else
+          {
+            sac.N_Final_Exp=parseExp();
+          s = sac;  
+          }
           accept(Sym.TpuntoYcoma);
           }
           else
           {
+              AST_Statement_Id_Id SII = null;
+              SII.id=id2;
               accept(Sym.Tpunto);
+              SII.id2=token_actual.lexema.toString();
               accept(Sym.Tidentifier);
               accept(Sym.TparentesisInicio);
-              parseExplist();
+              SII.Expl_final=parseExplist();
               accept(Sym.TparentesisFinal);
               accept(Sym.TpuntoYcoma);
+              s=SII;
           }
       }
       else if (token_actual.tipo == Sym.Tthis)
       {
           sigToken();
-          accept(Sym.Tpunto);
-          accept(Sym.Tidentifier);
-          accept(Sym.TparentesisInicio);
-          parseExplist();
-          accept(Sym.TparentesisFinal);
-          accept(Sym.TpuntoYcoma);
+          AST_Statement_This SII = null;
+              accept(Sym.Tpunto);
+              SII.id=token_actual.lexema.toString();
+              accept(Sym.Tidentifier);
+              accept(Sym.TparentesisInicio);
+              SII.N_ExpList=parseExplist();
+              accept(Sym.TparentesisFinal);
+              accept(Sym.TpuntoYcoma);
+              s=SII;
       }
       else
            throw new MyException("Error en el analisis sintactico. Se esperaba un statement, en su lugar viene " + errores(token_actual.tipo) + " en fila " + token_actual.fila + " y columna " + token_actual.columna + ".");
 
-      return null;
+      return s;
       
   }
     

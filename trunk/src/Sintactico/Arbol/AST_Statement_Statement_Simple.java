@@ -11,6 +11,10 @@ package Sintactico.Arbol;
  */
 public class AST_Statement_Statement_Simple extends AST_Statement_Statement  {
 
-    AST_Statement N_Statement;
+    public AST_Statement N_Statement;
+
+    public AST_Statement_Statement_Simple() {
+    }
+    
 
 }
