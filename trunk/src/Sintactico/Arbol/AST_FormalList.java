@@ -7,16 +7,8 @@ package Sintactico.Arbol;
 
 /**
  *
- * @author lidier
+ * @author Javier
  */
-public class AST_FormalList {
-
-  public AST_Type N_Type;
-  public String id;
-
-    public AST_FormalList() {
-    }
-  
-  
+public abstract class AST_FormalList {
 
 }
