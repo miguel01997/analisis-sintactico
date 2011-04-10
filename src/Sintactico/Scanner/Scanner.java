@@ -1027,7 +1027,7 @@ public class Scanner {
         case 6: 
           System.out.println("line: "+(yyline+1)+" "+"col: "+(yycolumn+1)+" "+"match: --"+yytext()+"--");
           System.out.println("action [82] { return symbol(Sintactico.Sym.TintLiteral); }");
-          { return symbol(Sintactico.Sym.TintLiteral);
+          { return symbol(Sintactico.Sym.TintLiteral,yytext());
           }
         case 100: break;
         case 47: 

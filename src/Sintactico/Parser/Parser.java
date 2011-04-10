@@ -629,8 +629,8 @@ public class Parser
       {
           if ((token_actual.tipo == Sym.TcorcheteInicio)||(token_actual.tipo == Sym.Tigual))
           {
-              AST_Statement_Asign_Compuesto sac = null;
-              AST_Statement_Asign sa = null;
+              AST_Statement_Asign_Compuesto sac = new AST_Statement_Asign_Compuesto();
+              AST_Statement_Asign sa = new AST_Statement_Asign();
 
           if (token_actual.tipo == Sym.TcorcheteInicio)
           {
@@ -655,7 +655,7 @@ public class Parser
           }
           else
           {
-              AST_Statement_Id_Id SII = null;
+              AST_Statement_Id_Id SII = new AST_Statement_Id_Id();
               SII.id=id;
               accept(Sym.Tpunto);
               SII.id2=token_actual.lexema.toString();
@@ -669,13 +669,15 @@ public class Parser
       }
       else if (token_actual.tipo == Sym.TllaveInicio)
       {
-          AST_Statement_Statement_Simple sss= null;
+          AST_Statement_Statement_Simple sss= new AST_Statement_Statement_Simple();
           sigToken();
+          int cont = 0;
           while (token_actual.tipo != Sym.TllaveFinal) // lo cambie por un while por q pueden haber n statements
           {
-              if (sss==null)
+              if (cont ==0)
               {
                   sss.N_Statement =parseStatement("");
+                  cont++;
               }
               else
               {
@@ -684,13 +686,13 @@ public class Parser
               s=l;
               }
           }
-          if (sss==null)
-          s=sss;
+          /*if (cont == 0)
+          s=sss;*/
           accept(Sym.TllaveFinal);
       }
       else if (token_actual.tipo == Sym.Tif)
       {
-          AST_Statement_If SI = null;
+          AST_Statement_If SI = new AST_Statement_If();
           sigToken();
           accept(Sym.TparentesisInicio);
           SI.N_Exp=parseExp();
@@ -702,7 +704,7 @@ public class Parser
       }
       else if (token_actual.tipo == Sym.Twhile)
       {
-          AST_Statement_While SW = null;
+          AST_Statement_While SW = new AST_Statement_While();
           sigToken();
           accept(Sym.TparentesisInicio);
           SW.N_Exp=parseExp();
@@ -719,7 +721,7 @@ public class Parser
 
           if (token_actual.tipo == Sym.Tout)
           {
-              AST_Statement_SOP ssop = null;
+              AST_Statement_SOP ssop = new AST_Statement_SOP();
               sigToken();
               if (token_actual.tipo != Sym.Tpunto)
                     throw new MyException("Error en el analisis sintactico. Se esperaba un statement, en su lugar viene " + errores(token_actual.tipo) + " en fila " + token_actual.fila + " y columna " + token_actual.columna + ".");
@@ -734,7 +736,7 @@ public class Parser
           }
           else if (token_actual.tipo == Sym.Texit)
           {
-              AST_Statement_SE sse = null;
+              AST_Statement_SE sse = new AST_Statement_SE();
               sigToken();
               accept(Sym.TparentesisInicio);
               sse.Int_Lit=Integer.parseInt(token_actual.lexema.toString());
@@ -748,7 +750,7 @@ public class Parser
       }
       else if (token_actual.tipo == Sym.TparentesisInicio)
       {
-          AST_Statement_SIR ssir = null;
+          AST_Statement_SIR ssir = new AST_Statement_SIR();
           sigToken();
           ssir.N_Type=parseType();
           accept(Sym.TparentesisFinal);
@@ -768,8 +770,8 @@ public class Parser
           sigToken();
           if ((token_actual.tipo == Sym.TcorcheteInicio)||(token_actual.tipo == Sym.Tigual))
           {
-              AST_Statement_Asign_Compuesto sac = null;
-              AST_Statement_Asign sa = null;
+              AST_Statement_Asign_Compuesto sac = new AST_Statement_Asign_Compuesto();
+              AST_Statement_Asign sa = new AST_Statement_Asign();
 
           if (token_actual.tipo == Sym.TcorcheteInicio)
           {
@@ -778,7 +780,7 @@ public class Parser
             accept(Sym.TcorcheteFinal);
           }
           accept(Sym.Tigual);
-          if (sac == null)
+          if (sac.id == null)
           {
           sa.N_Final_Exp=parseExp();
           sa.id=id2;
@@ -793,7 +795,7 @@ public class Parser
           }
           else
           {
-              AST_Statement_Id_Id SII = null;
+              AST_Statement_Id_Id SII = new AST_Statement_Id_Id();
               SII.id=id2;
               accept(Sym.Tpunto);
               SII.id2=token_actual.lexema.toString();
@@ -808,7 +810,7 @@ public class Parser
       else if (token_actual.tipo == Sym.Tthis)
       {
           sigToken();
-          AST_Statement_This SII = null;
+          AST_Statement_This SII = new AST_Statement_This();
               accept(Sym.Tpunto);
               SII.id=token_actual.lexema.toString();
               accept(Sym.Tidentifier);
