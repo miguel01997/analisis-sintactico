@@ -461,27 +461,29 @@ public class Parser
     
   public AST_FormalList parseFormallist() throws MyException
   {
-      AST_FormalList f = new AST_FormalList();
+      AST_FormalList fl = null;
       if ((token_actual.tipo == Sym.Tint) || (token_actual.tipo == Sym.Tboolean) || (token_actual.tipo == Sym.Tidentifier))
       {
+          AST_FormalList_Simple f = new AST_FormalList_Simple();
       f.N_Type = parseType();
       f.id = token_actual.lexema.toString();
+      fl = f;
       accept(Sym.Tidentifier);
       while(token_actual.tipo == Sym.Tcoma)
       {
           
           sigToken();
-          AST_FormalList t = new AST_FormalList();
+          AST_FormalList_Simple t = new AST_FormalList_Simple();
           t.N_Type=parseType();
           t.id = token_actual.lexema.toString();
           AST_FormalList_Lista l = new AST_FormalList_Lista();
-          l.N=f;
+          l.N=fl;
           l.sig=t;
-          f=l;
+          fl=l;
           accept(Sym.Tidentifier);
       }
       }
-      return f;
+      return fl;
   }
       
   public AST_Type parseType() throws MyException
