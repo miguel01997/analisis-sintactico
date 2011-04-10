@@ -11,7 +11,11 @@ package Sintactico.Arbol;
  */
 public class AST_Statement_Asign extends AST_Statement_Id {
 
+     public AST_Exp N_Final_Exp;
+
+    public AST_Statement_Asign() {
+    }
      
-     AST_Exp N_Final_Exp;
+     
 
 }

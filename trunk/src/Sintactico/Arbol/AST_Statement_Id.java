@@ -10,6 +10,8 @@ package Sintactico.Arbol;
  * @author lidier
  */
 public class AST_Statement_Id extends AST_Statement_Simple {
-    String id;
+    public String id;
+    
 
+    
 }

@@ -11,8 +11,12 @@ package Sintactico.Arbol;
  */
 public class AST_Statement_This extends AST_Statement_Simple {
 
-    String id;
+    public String id;
 
-    AST_ExpList N_ExpList;
+    public AST_ExpList N_ExpList;
+
+    public AST_Statement_This() {
+    }
+    
 
 }

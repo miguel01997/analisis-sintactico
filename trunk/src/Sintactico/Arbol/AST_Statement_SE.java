@@ -13,6 +13,10 @@ public class AST_Statement_SE extends AST_Statement_Simple {
 
     public int Int_Lit;
 
+    public AST_Statement_SE() {
+    }
+    
+    
 
 
 }

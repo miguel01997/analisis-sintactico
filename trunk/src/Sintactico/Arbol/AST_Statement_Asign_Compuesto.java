@@ -11,6 +11,10 @@ package Sintactico.Arbol;
  */
 public class AST_Statement_Asign_Compuesto extends AST_Statement_Asign {
 
-    AST_Exp N_Exp;
+    public AST_Exp N_Exp;
+
+    public AST_Statement_Asign_Compuesto() {
+    }
+    
 
 }
