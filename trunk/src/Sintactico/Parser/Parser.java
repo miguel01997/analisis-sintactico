@@ -579,7 +579,7 @@ public class Parser
       
   }
     
-  public void parseExp() throws MyException
+  public AST_Exp parseExp() throws MyException
   {
       parseExpSimpl();
       while (((token_actual.tipo > 29) && (token_actual.tipo < 42)) || (token_actual.tipo == Sym.TcorcheteInicio) || (token_actual.tipo == Sym.Tpunto))
@@ -612,54 +612,95 @@ public class Parser
   }
   
   
-  public void parseExpSimpl() throws MyException
+  public AST_ExpSimpl parseExpSimpl() throws MyException
   {
+      AST_ExpSimpl Ex = null;
+      
       if (token_actual.tipo == Sym.TintLiteral)
+      {
+          AST_ExpSimpl_IntegerLiteral e = new AST_ExpSimpl_IntegerLiteral();
+          e.N_IntegerLiteral = Integer.parseInt(token_actual.lexema.toString());
+          Ex = e;
           sigToken();
+      }
       else if (token_actual.tipo == Sym.Ttrue)
+      {
+          AST_ExpSimpl_True e = new AST_ExpSimpl_True();
+          Ex = e;
           sigToken();
+      }
       else if (token_actual.tipo == Sym.Tfalse)
+      {
+          AST_ExpSimpl_False e = new AST_ExpSimpl_False();
+          Ex = e;
           sigToken();
+      }
       else if (token_actual.tipo == Sym.Tidentifier)
+      {
+          AST_ExpSimpl_Id e = new AST_ExpSimpl_Id();
+          e.id = token_actual.lexema.toString();
+          Ex = e;
           sigToken();
+      }
       else if (token_actual.tipo == Sym.Tthis)
+      {
+          AST_ExpSimpl_This e = new AST_ExpSimpl_This();
+          Ex = e;
           sigToken();
+      }
       else if (token_actual.tipo == Sym.Tnew)
       {
           sigToken();
           if (token_actual.tipo == Sym.Tint)
           {
+              AST_ExpSimpl_NewInt e = new AST_ExpSimpl_NewInt();
               sigToken();
-              accept(Sym.TllaveInicio);
-              parseExp();
-              accept(Sym.TllaveFinal);
+              accept(Sym.TcorcheteInicio);
+              e.N_Exp = parseExp();
+              accept(Sym.TcorcheteFinal);
+              Ex = e;
           }
           else if (token_actual.tipo == Sym.Tidentifier)
           {
+              AST_ExpSimpl_New e = new AST_ExpSimpl_New();
+              e.id = token_actual.lexema.toString();
               sigToken();
               accept(Sym.TparentesisInicio);
-              parseExplist();
+              e.N_ExpList = parseExplist();
               accept(Sym.TparentesisFinal);
+              Ex = e;
           }
           else
              throw new MyException("Error en el analisis sintactico. Se esperaba una un entero o identificador, en su lugar viene " + errores(token_actual.tipo) + " en fila " + token_actual.fila + " y columna " + token_actual.columna + ".");
 
       }
-      else if (token_actual.tipo == Sym.Tdiferente)
+      else if (token_actual.tipo == Sym.Tnegacion)
       {
+          AST_ExpSimpl_Negacion e = new AST_ExpSimpl_Negacion();
           sigToken();
-          parseExp();
+          e.N_Exp parseExp();
+          Ex = e;
       }
       else if (token_actual.tipo == Sym.TparentesisInicio)
       {
+          AST_ExpSimpl_Parentesis e = new AST_ExpSimpl_Parentesis();
           sigToken();
-          parseExp();
+          e.N_Exp = parseExp();
           accept(Sym.TparentesisFinal);
+
+          Ex = e;
       }
       else if (token_actual.tipo == Sym.TstringConstant)
+      {
+          AST_ExpSimpl_StringConstant e = new AST_ExpSimpl_StringConstant();
+          e.N_StringConstant = token_actual.lexema.toString();
           sigToken();
+          Ex = e;
+      }
       else
           throw new MyException("Error en el analisis sintactico. Se esperaba una expresión, en su lugar viene " + errores(token_actual.tipo) + " en fila " + token_actual.fila + " y columna " + token_actual.columna + ".");
+      
+      return Ex;
 
   }
     

@@ -11,4 +11,12 @@ package Sintactico.Arbol;
  */
 public class AST_ExpSimpl_StringConstant extends AST_ExpSimpl {
 
+    public String N_StringConstant;
+
+    public AST_ExpSimpl_StringConstant() {
+    }
+
+    
+    
+
 }

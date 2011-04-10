@@ -11,6 +11,11 @@ package Sintactico.Arbol;
  */
 public class AST_ExpSimpl_Negacion extends AST_ExpSimpl {
 
-    AST_Exp N_Exp;
+    public AST_Exp N_Exp;
+
+    public AST_ExpSimpl_Negacion() {
+    }
+
+    
 
 }
