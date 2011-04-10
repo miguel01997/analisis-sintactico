@@ -9,9 +9,9 @@ package Sintactico.Arbol;
  *
  * @author lidier
  */
-public class AST_Exp_TerminalBody_Lista extends AST_Exp_Terminal{
+public class AST_Exp_TerminalBody_Lista extends AST_Exp_TerminalBody{
 
-    AST_Exp_Terminal N_Exp_Terminal;
-    AST_Exp_Terminal extN;
+    AST_Exp_TerminalBody N_Exp_Terminal;
+    AST_Exp_TerminalBody extN;
 
 }

@@ -668,7 +668,9 @@ public class Parser
     
   public AST_Exp parseExp() throws MyException
   {
-      parseExpSimpl();
+      AST_Exp Ex = null;
+      AST_ExpSimpl ExS = parseExpSimpl();
+
       while (((token_actual.tipo > 29) && (token_actual.tipo < 42)) || (token_actual.tipo == Sym.TcorcheteInicio) || (token_actual.tipo == Sym.Tpunto))
       if ((token_actual.tipo > 29) && (token_actual.tipo < 42))
       {
