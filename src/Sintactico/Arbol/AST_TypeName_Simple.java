@@ -11,10 +11,9 @@ package Sintactico.Arbol;
  */
 public class AST_TypeName_Simple extends AST_TypeName {
 
-    String id;
+    public String id;
 
-    public AST_TypeName_Simple(String id) {
-        this.id = id;
+    public AST_TypeName_Simple() {
     }
 
     

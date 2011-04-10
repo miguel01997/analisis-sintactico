@@ -11,5 +11,11 @@ package Sintactico.Arbol;
  */
 public class AST_FormalList_Lista extends AST_FormalList{
 
-    AST_FormalList sig;
+    public AST_FormalList N;
+    public AST_FormalList sig;
+
+    public AST_FormalList_Lista() {
+    }
+    
+    
 }

@@ -14,4 +14,9 @@ public class AST_ClassDecl_Lista extends AST_ClassDecl {
     public AST_ClassDecl N;
     public AST_ClassDecl extN;
 
+    public AST_ClassDecl_Lista() {
+    }
+    
+    
+
 }

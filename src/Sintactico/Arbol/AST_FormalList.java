@@ -11,7 +11,12 @@ package Sintactico.Arbol;
  */
 public class AST_FormalList {
 
-  AST_Type N_Type;
+  public AST_Type N_Type;
+  public String id;
 
+    public AST_FormalList() {
+    }
+  
+  
 
 }

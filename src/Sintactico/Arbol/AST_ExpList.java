@@ -11,6 +11,10 @@ package Sintactico.Arbol;
  */
 public class AST_ExpList {
 
-   AST_Exp N_Exp;
+   public AST_Exp N_Exp;
+
+    public AST_ExpList() {
+    }
+   
 
 }
