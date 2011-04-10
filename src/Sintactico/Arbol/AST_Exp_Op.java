@@ -11,7 +11,11 @@ package Sintactico.Arbol;
  */
 public class AST_Exp_Op extends AST_Exp_TerminalBody_Simple {
 
-    AST_Op N_Op;
-    AST_Exp N_Exp;
+    public AST_Op N_Op;
+    public AST_Exp N_Exp;
+
+    public AST_Exp_Op() {
+    }
+
 
 }

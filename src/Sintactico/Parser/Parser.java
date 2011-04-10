@@ -672,34 +672,75 @@ public class Parser
   {
       AST_Exp Ex = null;
       AST_ExpSimpl ExS = parseExpSimpl();
+      AST_Exp_TerminalBody ExT = null;
 
       while (((token_actual.tipo > 29) && (token_actual.tipo < 42)) || (token_actual.tipo == Sym.TcorcheteInicio) || (token_actual.tipo == Sym.Tpunto))
+      {
+       AST_Exp_TerminalBody expT = null;
+
       if ((token_actual.tipo > 29) && (token_actual.tipo < 42))
       {
+          AST_Exp_Op eo = new AST_Exp_Op();
+
+          AST_Op operador = new AST_Op();
+          operador.Num_Op = token_actual.tipo;
+          eo.N_Op = operador;
           sigToken();
-          parseExp();
+          eo.N_Exp = parseExp();
+          
+          expT = eo;
+
       }
       else if (token_actual.tipo == Sym.TcorcheteInicio)
           {
+          AST_Exp_Exp ee = new AST_Exp_Exp();
           sigToken();
-          parseExp();
+          ee.N_Exp2 = parseExp();
           accept(Sym.TcorcheteFinal);
+          expT = ee;
       }
       else if (token_actual.tipo == Sym.Tpunto)
       {
           sigToken();
           if (token_actual.tipo == Sym.Tlength)
-          sigToken();
+          {
+              AST_Exp_Length el = new AST_Exp_Length();
+              sigToken();
+              expT = el;
+          }
           else if (token_actual.tipo == Sym.Tidentifier)
           {
+              AST_Exp_Id ei = new AST_Exp_Id();
+              ei.id = token_actual.lexema.toString();
               sigToken();
               accept(Sym.TparentesisInicio);
-              parseExplist();
+              ei.N_ExpList = parseExplist();
               accept(Sym.TparentesisFinal);
+              expT = ei;
           }
           else
              throw new MyException("Error en el analisis sintactico. Se esperaba un identificador o length, en su lugar viene " + errores(token_actual.tipo) + " en fila " + token_actual.fila + " y columna " + token_actual.columna + ".");
       }
+
+       if (ExT == null)
+           ExT = expT;
+       else
+       {
+           ExT = new AST_Exp_TerminalBody_Lista(ExT, expT);
+       }
+
+      }
+
+      if (ExT == null)
+      {
+          Ex = ExS;
+      }
+      else
+      {
+          Ex = new AST_Exp_Terminal(ExS, ExT);
+      }
+      return Ex;
+
   }
   
   
