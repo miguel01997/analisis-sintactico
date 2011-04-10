@@ -17,6 +17,12 @@ public class AST_VarDecl_Lista extends AST_VarDecl {
     public AST_VarDecl_Lista() {
     }
 
+    public AST_VarDecl_Lista(AST_VarDecl N_VarDecl, AST_VarDecl extN) {
+        this.N_VarDecl = N_VarDecl;
+        this.extN = extN;
+    }
+    
+
 
 
 
