@@ -11,4 +11,14 @@ package Sintactico.Arbol;
  */
 public class AST_MethodDecl_Body_S extends AST_MethodDecl_Body {
 
+    public AST_Statement S;
+
+    public AST_MethodDecl_Body_S() {
+    }
+
+    public AST_MethodDecl_Body_S(AST_Statement S) {
+        this.S = S;
+    }
+    
+
 }

@@ -434,10 +434,29 @@ public class Parser
   
   public AST_MethodDecl parseMethoddecl(String id) throws MyException
   {
+
+      AST_MethodDecl Md = null;
+      AST_FormalList Fl = null;
+      AST_MethodDecl_Body Mbody = null;
+
+      AST_VarDecl BVD = null;
+      AST_Statement BSD = null;
+      
+      AST_Exp returnExp = null;
+
+      boolean Tvoid = true;
+
+
+
+
+
       if (!methodesid)
       {
       if ((token_actual.tipo == Sym.Tint)||(token_actual.tipo == Sym.Tboolean))
+      {
           parseType();
+
+      }
       else if (token_actual.tipo == Sym.Tvoid)
           sigToken();
       else
@@ -445,7 +464,7 @@ public class Parser
       }
       accept(Sym.Tidentifier);
       accept(Sym.TparentesisInicio);
-      parseFormallist();
+      Fl = parseFormallist();
       accept(Sym.TparentesisFinal);
       accept(Sym.TllaveInicio);
 
@@ -472,15 +491,66 @@ public class Parser
       }
 
       while ((token_actual.tipo != Sym.Treturn) && (token_actual.tipo != Sym.TllaveFinal))
-          parseStatement();
+      {
+          if (BSD == null)
+            BSD = parseStatement();
+          else
+          {
+              BSD = new AST_Statement_Lista(BSD, parseStatement());
+          }
+      }
       
       if (token_actual.tipo == Sym.Treturn)
       {
           sigToken();
-          parseExp();
+          returnExp = parseExp();
           accept(Sym.TpuntoYcoma);
+
       }
       accept(Sym.TllaveFinal);
+
+
+      if (Tvoid)
+      {
+          if (returnExp == null)
+          {
+              AST_MethodDecl_Void m = new AST_MethodDecl_Void();
+              m.N_FormalList = Fl;
+
+
+              Md = m;
+
+          }
+          else
+          {
+              AST_MethodDecl_Void_R m = new AST_MethodDecl_Void_R();
+              m.N_FormalList = Fl;
+
+              Md = m;
+
+          }
+      }
+ else
+      {
+          if (returnExp == null)
+          {
+              AST_MethodDecl_Type m = new AST_MethodDecl_Type();
+              m.N_FormalList = Fl;
+
+              Md = m;
+          }
+          else
+          {
+              AST_MethodDecl_Type_R m = new AST_MethodDecl_Type_R();
+              m.N_FormalList = Fl;
+
+              Md = m;
+
+          }
+      }
+
+
+      return Md;
   }
     
   public AST_FormalList parseFormallist() throws MyException
@@ -689,6 +759,8 @@ public class Parser
       }
       else
            throw new MyException("Error en el analisis sintactico. Se esperaba un statement, en su lugar viene " + errores(token_actual.tipo) + " en fila " + token_actual.fila + " y columna " + token_actual.columna + ".");
+
+      return null;
       
   }
     
