@@ -11,4 +11,11 @@ package Sintactico.Arbol;
  */
 public class AST_ExpSimpl_IntegerLiteral extends AST_ExpSimpl {
 
+    public int N_IntegerLiteral;
+
+    public AST_ExpSimpl_IntegerLiteral() {
+    }
+
+
+
 }

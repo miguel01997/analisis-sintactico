@@ -9,8 +9,13 @@ package Sintactico.Arbol;
  *
  * @author lidier
  */
-public class AST_ExpSimpl_Parentesis {
+public class AST_ExpSimpl_Parentesis extends AST_ExpSimpl {
 
-    AST_Exp N_Exp;
+    public AST_Exp N_Exp;
+
+    public AST_ExpSimpl_Parentesis() {
+    }
+
+    
 
 }
