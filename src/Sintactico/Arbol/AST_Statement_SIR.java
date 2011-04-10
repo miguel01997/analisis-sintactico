@@ -11,6 +11,10 @@ package Sintactico.Arbol;
  */
 public class AST_Statement_SIR extends AST_Statement_Simple {
 
-    AST_Type N_Type;
+    public AST_Type N_Type;
+
+    public AST_Statement_SIR() {
+    }
+    
 
 }

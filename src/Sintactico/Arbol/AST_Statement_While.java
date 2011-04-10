@@ -12,6 +12,11 @@ package Sintactico.Arbol;
 public class AST_Statement_While extends AST_Statement_Simple {
 
 
-    AST_Exp N_Exp;
-    AST_Statement N_Statement;
+    public AST_Exp N_Exp;
+    public AST_Statement N_Statement;
+
+    public AST_Statement_While() {
+    }
+    
+    
 }

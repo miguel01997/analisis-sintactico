@@ -11,8 +11,12 @@ package Sintactico.Arbol;
  */
 public class AST_Statement_If extends AST_Statement_Simple {
 
-    AST_Exp N_Exp;
-    AST_Statement N_Statement;
-    AST_Statement N_Else_Statement;
+    public AST_Exp N_Exp;
+    public AST_Statement N_Statement;
+    public AST_Statement N_Else_Statement;
+
+    public AST_Statement_If() {
+    }
+    
 
 }
