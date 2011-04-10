@@ -231,17 +231,20 @@ public class Parser
             sigToken();
             if (token_actual.tipo == Sym.Tidentifier)
             {
+                String id = token_actual.lexema.toString();
                 sigToken();
                 if (token_actual.tipo == Sym.TparentesisInicio)
-                    parseConstrdecl();
+                    parseConstrdecl(id);
                 else
                 {
                     methodesid = true;
-                    parseMethoddecl();
+                    parseMethoddecl(id);
                 }
             }
             else
-                parseMethoddecl();
+            {
+                parseMethoddecl("");
+            }
             
          
         }
@@ -251,7 +254,7 @@ public class Parser
         
   }
   
-  public void parseVardecl() throws MyException
+  public AST_VarDecl parseVardecl() throws MyException
   {
       parseType();
       accept(Sym.Tidentifier);
@@ -259,25 +262,98 @@ public class Parser
   }
   
 
-   public void parseConstrdecl() throws MyException
+   public AST_ConstrDecl parseConstrdecl(String id) throws MyException
   {
+
+      AST_ConstrDecl C = null;
+      AST_VarDecl V = null;
+      AST_Statement S = null;
+      AST_FormalList F = null;
+      
       accept(Sym.TparentesisInicio);
-      parseFormallist();
+      F = parseFormallist();
       accept(Sym.TparentesisFinal);
       accept(Sym.TllaveInicio);
 
-      
-
       while ((token_actual.tipo == Sym.Tint) || (token_actual.tipo == Sym.Tboolean) || (token_actual.tipo == Sym.Tidentifier))
-          parseVardecl();
+      {
+          if (V == null)
+          {
+              V = parseVardecl();
+          }
+          else
+          {
+              AST_VarDecl t = parseVardecl();
+              AST_VarDecl_Lista l = new AST_VarDecl_Lista();
+              l.N_VarDecl = V;
+              l.extN = t;
+              V = l;
+          }
+      }
 
       while (token_actual.tipo != Sym.TllaveFinal)
-          parseStatement();
+      {
+          if (S == null)
+          {
+              S = parseStatement();
+          }
+          else
+          {
+              AST_Statement t = parseStatement();
+              AST_Statement_Lista l = new AST_Statement_Lista();
+              l.N = S;
+              l.extN = t;
+              S = l;
+          }
+      }
+
       accept(Sym.TllaveFinal);
+
+      if (V == null)
+      {
+          if (S == null)
+          {
+              AST_ConstrDecl cons = new AST_ConstrDecl();
+              cons.id = id;
+              cons.N_FormalList = F;
+              C = cons;
+
+          }
+        else
+          {
+              AST_ConstrDecl_S cons = new AST_ConstrDecl_S();
+              cons.id = id;
+              cons.N_FormalList = F;
+              cons.N_Statement = S;
+              C = cons;
+        }
+      }
+    else
+      {
+          if (S == null)
+          {
+              AST_ConstrDecl_V cons = new AST_ConstrDecl_V();
+              cons.id = id;
+              cons.N_FormalList = F;
+              cons.N_VarDecl = V;
+              C = cons;
+          }
+        else
+          {
+              AST_ConstrDecl_VS cons = new AST_ConstrDecl_VS();
+              cons.id = id;
+              cons.N_FormalList = F;
+              cons.N_VarDecl = V;
+              cons.N_Statement = S;
+              C = cons;
+        }
+      }
+
+      return C;
   }
    
   
-  public void parseMethoddecl() throws MyException
+  public void parseMethoddecl(String id) throws MyException
   {
       if (!methodesid)
       {
@@ -328,7 +404,7 @@ public class Parser
       accept(Sym.TllaveFinal);
   }
     
-  public void parseFormallist() throws MyException
+  public AST_FormalList parseFormallist() throws MyException
   {
       if ((token_actual.tipo == Sym.Tint) || (token_actual.tipo == Sym.Tboolean) || (token_actual.tipo == Sym.Tidentifier))
       {
@@ -362,7 +438,7 @@ public class Parser
           throw new MyException("Error en el analisis sintactico. Se esperaba un entero, un boolean o un identificador, en su lugar viene " + errores(token_actual.tipo) + " en fila " + token_actual.fila + " y columna " + token_actual.columna + ".");
   }
   
-  public void parseStatement() throws MyException
+  public AST_Statement parseStatement() throws MyException
   {
       if (methodesid2)
       {

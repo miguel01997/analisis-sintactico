@@ -9,7 +9,11 @@ package Sintactico.Arbol;
  *
  * @author lidier
  */
-public abstract class AST_Statement {
+public class AST_MethodDecl_Type_R extends AST_MethodDecl {
+
+    AST_Type N_Type;
+
+    AST_Exp R_Exp;
 
 
 

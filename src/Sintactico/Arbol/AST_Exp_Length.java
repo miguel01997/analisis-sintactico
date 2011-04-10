@@ -9,6 +9,6 @@ package Sintactico.Arbol;
  *
  * @author lidier
  */
-public class AST_Exp_Length extends AST_Exp_Terminal_Body {
+public class AST_Exp_Length extends AST_Exp_TerminalBody_Simple {
 
 }

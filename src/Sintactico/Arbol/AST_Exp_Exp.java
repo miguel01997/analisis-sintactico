@@ -9,7 +9,7 @@ package Sintactico.Arbol;
  *
  * @author lidier
  */
-public class AST_Exp_Exp extends AST_Exp_Terminal_Body {
-    AST_Exp N_Exp;
+public class AST_Exp_Exp extends AST_Exp_TerminalBody_Simple {
+    
 
 }

@@ -11,14 +11,12 @@ package Sintactico.Arbol;
  */
 public class AST_VarDecl_Lista extends AST_VarDecl {
 
-    AST_VarDecl sig;
+    public AST_VarDecl N_VarDecl;
+    public AST_VarDecl extN;
 
-    public AST_VarDecl_Lista(AST_Type t, String i, AST_VarDecl sig) {
-        
-        N_Type = t;
-        id = i;
-        this.sig = sig;
+    public AST_VarDecl_Lista() {
     }
+
 
 
 
