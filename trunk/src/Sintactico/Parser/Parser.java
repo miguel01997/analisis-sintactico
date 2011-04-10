@@ -269,13 +269,22 @@ public class Parser
   
   public AST_BodyDecl parseBodydecl() throws MyException
   {
+      AST_BodyDecl B = null;
+  
       
     while ((token_actual.tipo == Sym.Tint)||(token_actual.tipo == Sym.Tboolean)||(token_actual.tipo == Sym.Tidentifier)||(token_actual.tipo == Sym.Tpublic)||(token_actual.tipo == Sym.Tclass))
     {
+        AST_BodyDecl_Simple Bd = null;
         if ((token_actual.tipo == Sym.Tint)||(token_actual.tipo == Sym.Tboolean)||(token_actual.tipo == Sym.Tidentifier))
-            parseVardecl();
+        {
+            AST_VarDecl vd = parseVardecl();
+            Bd = vd;
+        }
         else if (token_actual.tipo == Sym.Tclass)
-            parseClassdecl();
+        {
+            AST_ClassDecl cd = parseClassdecl();
+            Bd = cd;
+        }
         else
         {
             sigToken();
@@ -284,22 +293,37 @@ public class Parser
                 String id = token_actual.lexema.toString();
                 sigToken();
                 if (token_actual.tipo == Sym.TparentesisInicio)
-                    parseConstrdecl(id);
+                {
+                    AST_ConstrDecl cd = parseConstrdecl(id);
+                    Bd = cd;
+                }
                 else
                 {
                     methodesid = true;
-                    parseMethoddecl(id);
+                    AST_MethodDecl md = parseMethoddecl(id);
+                    Bd = md;
                 }
             }
             else
             {
-                parseMethoddecl("");
+                AST_MethodDecl md = parseMethoddecl("");
+                Bd = md;
             }
             
          
         }
+        if (B == null)
+        {
+         B = Bd;
+        }
+        else
+        {
+            B = new AST_BodyDecl_Lista(B, Bd);
+        }
         
     }
+
+      return B;
         
         
   }
@@ -861,8 +885,10 @@ public class Parser
     
   public AST_Op parseOp() throws MyException
   {
-      AST_Op o=new AST_Op();
-      if (token_actual.tipo == 30)
+      AST_Op o= new AST_Op();
+      o.Num_Op = token_actual.tipo;
+     return o;
+      /*if (token_actual.tipo == 30)
       {
           sigToken();
           AST_Op ot=new AST_Op();
@@ -949,6 +975,8 @@ public class Parser
       else
           throw new MyException("Error en el analisis sintactico. Se esperaba un operador, en su lugar viene " + errores(token_actual.tipo) + " en fila " + token_actual.fila + " y columna " + token_actual.columna + ".");
       return o;
+       * *
+       */
   }
   
   
