@@ -4,81 +4,57 @@
  */
 
 package Visitor;
-
-import Sintactico.Arbol.AST_BodyDecl_Lista;
-import Sintactico.Arbol.AST_ClassDecl_Lista;
-import Sintactico.Arbol.AST_ClassDecl_Simple;
-import Sintactico.Arbol.AST_ClassDecl_Simple_E;
-import Sintactico.Arbol.AST_ClassDecl_Simple_I;
-import Sintactico.Arbol.AST_ConstrDecl;
-import Sintactico.Arbol.AST_ConstrDecl_S;
-import Sintactico.Arbol.AST_ConstrDecl_V;
-import Sintactico.Arbol.AST_ConstrDecl_VS;
-import Sintactico.Arbol.AST_ExpList_Lista;
-import Sintactico.Arbol.AST_ExpList_Simple;
-import Sintactico.Arbol.AST_ExpSimpl_False;
-import Sintactico.Arbol.AST_ExpSimpl_Id;
-import Sintactico.Arbol.AST_ExpSimpl_IntegerLiteral;
-import Sintactico.Arbol.AST_ExpSimpl_Negacion;
-import Sintactico.Arbol.AST_ExpSimpl_New;
-import Sintactico.Arbol.AST_ExpSimpl_NewInt;
-import Sintactico.Arbol.AST_ExpSimpl_Parentesis;
-import Sintactico.Arbol.AST_ExpSimpl_StringConstant;
-import Sintactico.Arbol.AST_ExpSimpl_This;
-import Sintactico.Arbol.AST_ExpSimpl_True;
-import Sintactico.Arbol.AST_Exp_Exp;
-import Sintactico.Arbol.AST_Exp_Id;
-import Sintactico.Arbol.AST_Exp_Length;
-import Sintactico.Arbol.AST_Exp_Op;
-import Sintactico.Arbol.AST_Exp_Terminal;
-import Sintactico.Arbol.AST_Exp_TerminalBody_Lista;
-import Sintactico.Arbol.AST_Exp_TerminalBody_Simple;
-import Sintactico.Arbol.AST_FormalList_Lista;
-import Sintactico.Arbol.AST_FormalList_Simple;
-import Sintactico.Arbol.AST_Import_Asterisco;
-import Sintactico.Arbol.AST_Import_Lista;
-import Sintactico.Arbol.AST_Import_Simple;
-import Sintactico.Arbol.AST_Main;
-import Sintactico.Arbol.AST_MethodDecl;
-import Sintactico.Arbol.AST_MethodDecl_Body_S;
-import Sintactico.Arbol.AST_MethodDecl_Body_V;
-import Sintactico.Arbol.AST_MethodDecl_Body_VS;
-import Sintactico.Arbol.AST_MethodDecl_Type;
-import Sintactico.Arbol.AST_MethodDecl_Type_R;
-import Sintactico.Arbol.AST_MethodDecl_Void;
-import Sintactico.Arbol.AST_MethodDecl_Void_R;
-import Sintactico.Arbol.AST_Op;
-import Sintactico.Arbol.AST_Program_IM;
-import Sintactico.Arbol.AST_Program_IMC;
-import Sintactico.Arbol.AST_Program_M;
-import Sintactico.Arbol.AST_Program_MC;
-import Sintactico.Arbol.AST_Statement_Asign;
-import Sintactico.Arbol.AST_Statement_Asign_Compuesto;
-import Sintactico.Arbol.AST_Statement_Id;
-import Sintactico.Arbol.AST_Statement_Id_Id;
-import Sintactico.Arbol.AST_Statement_If;
-import Sintactico.Arbol.AST_Statement_Lista;
-import Sintactico.Arbol.AST_Statement_SE;
-import Sintactico.Arbol.AST_Statement_SIR;
-import Sintactico.Arbol.AST_Statement_SOP;
-import Sintactico.Arbol.AST_Statement_Simple;
-import Sintactico.Arbol.AST_Statement_Statement_Lista;
-import Sintactico.Arbol.AST_Statement_Statement_Simple;
-import Sintactico.Arbol.AST_Statement_This;
-import Sintactico.Arbol.AST_Statement_While;
-import Sintactico.Arbol.AST_TypeName_Lista;
-import Sintactico.Arbol.AST_TypeName_Simple;
-import Sintactico.Arbol.AST_Type_I;
-import Sintactico.Arbol.AST_Type_T;
-import Sintactico.Arbol.AST_VarDecl_Lista;
-import Sintactico.Arbol.AST_VarDecl_Simple;
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.tree.*;
+import javax.swing.text.*;
+import Sintactico.Arbol.*;
+import java.awt.GridLayout;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 
 /**
  *
  * @author Javier
  */
 public class imprimir_visitor implements visitor{
+    
+  public void imprimir(AST raiz)
+  {
+    DefaultMutableTreeNode root;
+    root=new DefaultMutableTreeNode("AST");
+    root.add((MutableTreeNode) raiz.visit(this));
+   final DefaultTreeModel model = new DefaultTreeModel(root);
+      final JTree tree = new JTree(model);
+      // create a text field and button to modify the data model
+      JPanel addPanel = new JPanel(new GridLayout(2, 1));
 
+      // listen for selections
+    tree.addTreeSelectionListener(new TreeSelectionListener(  ) {
+    public void valueChanged(TreeSelectionEvent e)
+    {
+          TreePath tp = e.getNewLeadSelectionPath(  );
+    }
+    });
+      // create a JFrame to hold the tree
+     JFrame frame = new JFrame("Arbol de Sintaxis Abstracta");
+
+      frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+      frame.setSize(400,600);
+      frame.getContentPane().add(new JScrollPane(tree));
+      frame.getContentPane().add(addPanel, BorderLayout.SOUTH);
+      frame.setVisible(true);
+  }
+   public Object List_nor_classdec(Object o, List_nor_classdec arg) {
+
+        DefaultMutableTreeNode v = new DefaultMutableTreeNode(arg.getClass().getName() );
+        int numaux = ((Integer)o).intValue();
+        v.add((MutableTreeNode)arg.nodo.visit(this, new Integer(numaux+1)));
+        v.add((MutableTreeNode)arg.sig.visit(this, new Integer(numaux+1)));
+        return v;
+
+    }
+    
     public Object visitBodyDecl_Lista(AST_BodyDecl_Lista N) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
@@ -347,4 +323,5 @@ public class imprimir_visitor implements visitor{
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    
 }
