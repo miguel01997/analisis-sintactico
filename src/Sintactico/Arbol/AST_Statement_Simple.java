@@ -11,10 +11,8 @@ import Visitor.visitor;
  *
  * @author lidier
  */
-public class AST_Statement_Simple extends AST_Statement {
+public abstract class AST_Statement_Simple extends AST_Statement {
 
-    public Object visit(visitor v){
-        return v.visitStatement_Simple(this);
-    }
+    public abstract Object visit(visitor v);
 
 }
