@@ -1156,16 +1156,19 @@ public class Parser
   
 
   
-  public static void main(java.io.InputStream stream)
+  public static AST main(java.io.InputStream stream)
   {
+      AST arbol = null;
     try
     {
     scanner = new Scanner(stream);
     Parser p = new Parser();
-    p.parse();
+    arbol = p.parse();
     }
     catch(ParserException e)
     {System.out.println(e);}
+
+    return arbol;
     
   
   }
