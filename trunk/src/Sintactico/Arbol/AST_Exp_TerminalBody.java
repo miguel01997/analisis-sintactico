@@ -12,7 +12,7 @@ import Visitor.*;
  */
 public abstract class AST_Exp_TerminalBody{
 
-    
+    public abstract Object visit(visitor v);
 
 
 }

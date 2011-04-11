@@ -1,3 +1,4 @@
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -9,7 +10,7 @@ import javax.swing.*;
 import javax.swing.tree.*;
 import javax.swing.text.*;
 import Sintactico.Arbol.*;
-import java.awt.BorderLayout;
+
 import java.awt.GridLayout;
 import java.awt.BorderLayout;
 import javax.swing.event.TreeSelectionEvent;
@@ -26,23 +27,24 @@ public class imprimir_visitor implements visitor{
     DefaultMutableTreeNode root;
     root=new DefaultMutableTreeNode("AST");
     root.add((MutableTreeNode) raiz.visit(this));
-   final DefaultTreeModel model = new DefaultTreeModel(root);
+     final DefaultTreeModel model = new DefaultTreeModel(root);
       final JTree tree = new JTree(model);
       // create a text field and button to modify the data model
       JPanel addPanel = new JPanel(new GridLayout(2, 1));
-
       // listen for selections
-    tree.addTreeSelectionListener(new TreeSelectionListener(  ) {
-    public void valueChanged(TreeSelectionEvent e)
-    {
-          TreePath tp = e.getNewLeadSelectionPath(  );
-    }
-    });
+    tree.addTreeSelectionListener(new TreeSelectionListener(  )
+        {
+            public void valueChanged(TreeSelectionEvent e)
+            {
+                  TreePath tp = e.getNewLeadSelectionPath(  );
+            }
+        });
+        
       // create a JFrame to hold the tree
-     JFrame frame = new JFrame("Arbol AST");
+     JFrame frame = new JFrame("Arbol de Sintaxis Abstracta");
 
       frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-      frame.setSize(600,600);
+      frame.setSize(400,600);
       frame.getContentPane().add(new JScrollPane(tree));
       frame.getContentPane().add(addPanel, BorderLayout.SOUTH);
       frame.setVisible(true);
@@ -60,189 +62,215 @@ public class imprimir_visitor implements visitor{
 
     public Object visitClassDecl_Lista(AST_ClassDecl_Lista N) {
         DefaultMutableTreeNode v = new DefaultMutableTreeNode(N.getClass().getName());
-        v.add((MutableTreeNode)N.losnodos.visit(this));
+        v.add((MutableTreeNode)N.N.visit(this));
+        v.add((MutableTreeNode)N.extN.visit(this));
         return v;
     }
 
     public Object visitClassDecl_Simple(AST_ClassDecl_Simple N) {
         DefaultMutableTreeNode v = new DefaultMutableTreeNode(N.getClass().getName());
-        v.add((MutableTreeNode)N.losnodos.visit(this));
+        v.add((MutableTreeNode)N.N_BodyDecl.visit(this));
+        v.add(new DefaultMutableTreeNode(N.id));
         return v;
 
     }
 
     public Object visitClassDecl_Simple_E(AST_ClassDecl_Simple_E N) {
         DefaultMutableTreeNode v = new DefaultMutableTreeNode(N.getClass().getName());
-        v.add((MutableTreeNode)N.losnodos.visit(this));
+        v.add((MutableTreeNode)N.N_BodyDecl.visit(this));
+        v.add(new DefaultMutableTreeNode(N.extends_id));
+        v.add(new DefaultMutableTreeNode(N.id));
         return v;
 
     }
 
     public Object visitClassDecl_Simple_I(AST_ClassDecl_Simple_I N) {
         DefaultMutableTreeNode v = new DefaultMutableTreeNode(N.getClass().getName());
-        v.add((MutableTreeNode)N.losnodos.visit(this));
+        v.add((MutableTreeNode)N.N_BodyDecl.visit(this));
+        v.add(new DefaultMutableTreeNode(N.import_id));
+        v.add(new DefaultMutableTreeNode(N.id));
         return v;
     }
 
     public Object visitConstrDecl(AST_ConstrDecl N) {
         DefaultMutableTreeNode v = new DefaultMutableTreeNode(N.getClass().getName());
-        v.add((MutableTreeNode)N.losnodos.visit(this));
+        v.add((MutableTreeNode)N.N_FormalList.visit(this));
+        v.add(new DefaultMutableTreeNode(N.id));
         return v;
     }
 
     public Object visitConstrDecl_S(AST_ConstrDecl_S N) {
         DefaultMutableTreeNode v = new DefaultMutableTreeNode(N.getClass().getName());
-        v.add((MutableTreeNode)N.losnodos.visit(this));
+        v.add((MutableTreeNode)N.N_FormalList.visit(this));
+        v.add((MutableTreeNode)N.N_Statement.visit(this));
+        v.add(new DefaultMutableTreeNode(N.id));
         return v;
     }
 
     public Object visitConstrDecl_V(AST_ConstrDecl_V N) {
         DefaultMutableTreeNode v = new DefaultMutableTreeNode(N.getClass().getName());
-        v.add((MutableTreeNode)N.losnodos.visit(this));
+        v.add((MutableTreeNode)N.N_FormalList.visit(this));
+        v.add((MutableTreeNode)N.N_VarDecl.visit(this));
+        v.add(new DefaultMutableTreeNode(N.id));
         return v;
     }
 
     public Object visitConstrDecl_VS(AST_ConstrDecl_VS N) {
         DefaultMutableTreeNode v = new DefaultMutableTreeNode(N.getClass().getName());
-        v.add((MutableTreeNode)N.losnodos.visit(this));
+        v.add((MutableTreeNode)N.N_FormalList.visit(this));
+        v.add((MutableTreeNode)N.N_Statement.visit(this));
+        v.add((MutableTreeNode)N.N_VarDecl.visit(this));
+        v.add(new DefaultMutableTreeNode(N.id));
         return v;
     }
 
     public Object visitExpList_Lista(AST_ExpList_Lista N) {
         DefaultMutableTreeNode v = new DefaultMutableTreeNode(N.getClass().getName());
-        v.add((MutableTreeNode)N.losnodos.visit(this));
+        v.add((MutableTreeNode)N.N.visit(this));
+        v.add((MutableTreeNode)N.sig.visit(this));
         return v;
     }
 
     public Object visitExpList_Simple(AST_ExpList_Simple N) {
         DefaultMutableTreeNode v = new DefaultMutableTreeNode(N.getClass().getName());
-        v.add((MutableTreeNode)N.losnodos.visit(this));
+        v.add((MutableTreeNode)N.N_Exp.visit(this));
         return v;
     }
 
     public Object visitExpSimpl_False(AST_ExpSimpl_False N) {
         DefaultMutableTreeNode v = new DefaultMutableTreeNode(N.getClass().getName());
-        v.add((MutableTreeNode)N.losnodos.visit(this));
+        v.add((MutableTreeNode)N.N_ExpSimpl.visit(this));
         return v;
     }
 
     public Object visitExpSimpl_Id(AST_ExpSimpl_Id N) {
         DefaultMutableTreeNode v = new DefaultMutableTreeNode(N.getClass().getName());
-        v.add((MutableTreeNode)N.losnodos.visit(this));
+        v.add((MutableTreeNode)N.N_ExpSimpl.visit(this));
         return v;
     }
 
     public Object visitExpSimpl_IntegerLiteral(AST_ExpSimpl_IntegerLiteral N) {
         DefaultMutableTreeNode v = new DefaultMutableTreeNode(N.getClass().getName());
-        v.add((MutableTreeNode)N.losnodos.visit(this));
+        v.add((MutableTreeNode)N.N_ExpSimpl.visit(this));
+        v.add(new DefaultMutableTreeNode(String.valueOf(N.N_IntegerLiteral)));
         return v;
     }
 
     public Object visitExpSimpl_Negacion(AST_ExpSimpl_Negacion N) {
         DefaultMutableTreeNode v = new DefaultMutableTreeNode(N.getClass().getName());
-        v.add((MutableTreeNode)N.losnodos.visit(this));
+        v.add((MutableTreeNode)N.N_Exp.visit(this));
+        v.add((MutableTreeNode)N.N_ExpSimpl.visit(this));
         return v;
     }
 
     public Object visitExpSimpl_New(AST_ExpSimpl_New N) {
         DefaultMutableTreeNode v = new DefaultMutableTreeNode(N.getClass().getName());
-        v.add((MutableTreeNode)N.losnodos.visit(this));
+        v.add((MutableTreeNode)N.N_ExpList.visit(this));
+        v.add((MutableTreeNode)N.N_ExpSimpl.visit(this));
+        v.add(new DefaultMutableTreeNode(N.id));
         return v;
     }
 
     public Object visitExpSimpl_NewInt(AST_ExpSimpl_NewInt N) {
         DefaultMutableTreeNode v = new DefaultMutableTreeNode(N.getClass().getName());
-        v.add((MutableTreeNode)N.losnodos.visit(this));
+        v.add((MutableTreeNode)N.N_Exp.visit(this));
+        v.add((MutableTreeNode)N.N_ExpSimpl.visit(this));
         return v;
     }
 
     public Object visitExpSimpl_Parentesis(AST_ExpSimpl_Parentesis N) {
         DefaultMutableTreeNode v = new DefaultMutableTreeNode(N.getClass().getName());
-        v.add((MutableTreeNode)N.losnodos.visit(this));
+        v.add((MutableTreeNode)N.N_Exp.visit(this));
+        v.add((MutableTreeNode)N.N_ExpSimpl.visit(this));
         return v;
     }
 
     public Object visitExpSimpl_StringConstant(AST_ExpSimpl_StringConstant N) {
         DefaultMutableTreeNode v = new DefaultMutableTreeNode(N.getClass().getName());
-        v.add((MutableTreeNode)N.losnodos.visit(this));
+        v.add((MutableTreeNode)N.N_ExpSimpl.visit(this));
+        v.add(new DefaultMutableTreeNode(N.N_StringConstant));
         return v;
     }
 
     public Object visitExpSimpl_This(AST_ExpSimpl_This N) {
         DefaultMutableTreeNode v = new DefaultMutableTreeNode(N.getClass().getName());
-        v.add((MutableTreeNode)N.losnodos.visit(this));
+        v.add((MutableTreeNode)N.N_ExpSimpl.visit(this));
         return v;
     }
 
     public Object visitExpSimpl_True(AST_ExpSimpl_True N) {
         DefaultMutableTreeNode v = new DefaultMutableTreeNode(N.getClass().getName());
-        v.add((MutableTreeNode)N.losnodos.visit(this));
+        v.add((MutableTreeNode)N.N_ExpSimpl.visit(this));
         return v;
     }
 
     public Object visitExp_Exp(AST_Exp_Exp N) {
         DefaultMutableTreeNode v = new DefaultMutableTreeNode(N.getClass().getName());
-        v.add((MutableTreeNode)N.losnodos.visit(this));
+        v.add((MutableTreeNode)N.N_Exp2.visit(this));
         return v;
     }
 
     public Object visitExp_Id(AST_Exp_Id N) {
         DefaultMutableTreeNode v = new DefaultMutableTreeNode(N.getClass().getName());
-        v.add((MutableTreeNode)N.losnodos.visit(this));
+        v.add((MutableTreeNode)N.N_ExpList.visit(this));
+        v.add(new DefaultMutableTreeNode(N.id));
         return v;
     }
 
     public Object visitExp_Length(AST_Exp_Length N) {
         DefaultMutableTreeNode v = new DefaultMutableTreeNode(N.getClass().getName());
-        v.add((MutableTreeNode)N.losnodos.visit(this));
+        v.add(new DefaultMutableTreeNode("Length"));
         return v;
     }
 
     public Object visitExp_Op(AST_Exp_Op N) {
         DefaultMutableTreeNode v = new DefaultMutableTreeNode(N.getClass().getName());
-        v.add((MutableTreeNode)N.losnodos.visit(this));
+        v.add((MutableTreeNode)N.N_Exp.visit(this));
+        v.add((MutableTreeNode)N.N_Op.visit(this));
         return v;
     }
 
     public Object visitExp_Terminal(AST_Exp_Terminal N) {
         DefaultMutableTreeNode v = new DefaultMutableTreeNode(N.getClass().getName());
-        v.add((MutableTreeNode)N.losnodos.visit(this));
+        v.add((MutableTreeNode)N.N_ExpSimpl.visit(this));
         return v;
     }
 
     public Object visitExp_TerminalBody_Lista(AST_Exp_TerminalBody_Lista N) {
         DefaultMutableTreeNode v = new DefaultMutableTreeNode(N.getClass().getName());
-        v.add((MutableTreeNode)N.losnodos.visit(this));
+        v.add((MutableTreeNode)N.N_Exp_Terminal.visit(this));
+        v.add((MutableTreeNode)N.extN.visit(this));
         return v;
     }
 
-    public Object visitExp_TerminalBody_Simple(AST_Exp_TerminalBody_Simple N) {
-        DefaultMutableTreeNode v = new DefaultMutableTreeNode(N.getClass().getName());
-        v.add((MutableTreeNode)N.losnodos.visit(this));
-        return v;
-    }
+
+
+
 
     public Object visitFormalList_Simple(AST_FormalList_Simple N) {
         DefaultMutableTreeNode v = new DefaultMutableTreeNode(N.getClass().getName());
-        v.add((MutableTreeNode)N.losnodos.visit(this));
+        v.add((MutableTreeNode)N.N_Type.visit(this));
+        v.add(new DefaultMutableTreeNode(N.id));
         return v;
     }
 
     public Object visitFormalList_Lista(AST_FormalList_Lista N) {
         DefaultMutableTreeNode v = new DefaultMutableTreeNode(N.getClass().getName());
-        v.add((MutableTreeNode)N.losnodos.visit(this));
+        v.add((MutableTreeNode)N.N.visit(this));
+        v.add((MutableTreeNode)N.sig.visit(this));
         return v;
     }
 
     public Object visitImport_Asterisco(AST_Import_Asterisco N) {
         DefaultMutableTreeNode v = new DefaultMutableTreeNode(N.getClass().getName());
-        v.add((MutableTreeNode)N.losnodos.visit(this));
+        v.add((MutableTreeNode)N.N_TypeName.visit(this));
         return v;
     }
 
     public Object visitImport_Lista(AST_Import_Lista N) {
         DefaultMutableTreeNode v = new DefaultMutableTreeNode(N.getClass().getName());
-        v.add((MutableTreeNode)N.losnodos.visit(this));
+        v.add((MutableTreeNode)N.N_Import.visit(this));
+        v.add((MutableTreeNode)N.extN.visit(this));
         return v;
     }
 
@@ -323,12 +351,28 @@ public class imprimir_visitor implements visitor{
         return v;
     }
 
+
     public Object visitOp(AST_Op N) {
         DefaultMutableTreeNode v = new DefaultMutableTreeNode(N.getClass().getName());
-        v.add((MutableTreeNode)N.Num_Op.visit(this));
+        switch (N.Num_Op)
+        {
+            case 30 : v.add(new DefaultMutableTreeNode("+")); break;
+            case 31 : v.add(new DefaultMutableTreeNode("-")); break;
+            case 32 : v.add(new DefaultMutableTreeNode("/")); break;
+            case 33 : v.add(new DefaultMutableTreeNode("*")); break;
+            case 34 : v.add(new DefaultMutableTreeNode("<>")); break;
+            case 35 : v.add(new DefaultMutableTreeNode("==")); break;
+            case 36 : v.add(new DefaultMutableTreeNode("<")); break;
+            case 37 : v.add(new DefaultMutableTreeNode(">")); break;
+            case 38 : v.add(new DefaultMutableTreeNode("<=")); break;
+            case 39 : v.add(new DefaultMutableTreeNode(">=")); break;
+            case 40 : v.add(new DefaultMutableTreeNode("or")); break;
+            case 41 : v.add(new DefaultMutableTreeNode("and")); break;
+        }
         return v;
     }
 
+ 
     public Object visitProgram_IM(AST_Program_IM N) {
         DefaultMutableTreeNode v = new DefaultMutableTreeNode(N.getClass().getName());
         v.add((MutableTreeNode)N.N_Imports.visit(this));
@@ -489,4 +533,7 @@ public class imprimir_visitor implements visitor{
     }
 
     
+
+    
 }
+

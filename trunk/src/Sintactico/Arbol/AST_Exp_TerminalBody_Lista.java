@@ -12,8 +12,8 @@ import Visitor.*;
  */
 public class AST_Exp_TerminalBody_Lista extends AST_Exp_TerminalBody{
 
-    AST_Exp_TerminalBody N_Exp_Terminal;
-    AST_Exp_TerminalBody extN;
+    public AST_Exp_TerminalBody N_Exp_Terminal;
+    public AST_Exp_TerminalBody extN;
 
     public AST_Exp_TerminalBody_Lista() {
     }
