@@ -521,7 +521,9 @@ public class Parser
             BSD = parseStatement(idstatement);
           else
           {
-              BSD = new AST_Statement_Lista(BSD, parseStatement(idstatement));
+              methodesid2=false;
+              AST_Statement T = parseStatement(idstatement);
+              BSD = new AST_Statement_Lista(BSD, T);
           }
       }
       
@@ -650,7 +652,7 @@ public class Parser
   public AST_Statement parseStatement(String id) throws MyException
   {
       AST_Statement s = null;
-      if (!"".equals(id))
+      if (methodesid2)
       {
           if ((token_actual.tipo == Sym.TcorcheteInicio)||(token_actual.tipo == Sym.Tigual))
           {
