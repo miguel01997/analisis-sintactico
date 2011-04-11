@@ -208,11 +208,13 @@ public class Editor
         JMenuItem analizar = new JMenuItem(new AccionAnalizar(areaTexto));
         JMenuItem scannear = new JMenuItem(new AccionScannear(areaTexto));
         JMenuItem parsear = new JMenuItem(new AccionParsear(areaTexto));
+        JMenuItem imprimir = new JMenuItem(new AccionImprimir(areaTexto));
 
         JMenu menuAnalizar = new JMenu("Analizar");
         menuAnalizar.add(analizar);
         menuAnalizar.add(scannear);
         menuAnalizar.add(parsear);
+        menuAnalizar.add(imprimir);
         barraMenu.add(menuAnalizar);
 
 
