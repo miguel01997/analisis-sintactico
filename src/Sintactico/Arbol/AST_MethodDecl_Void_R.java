@@ -5,6 +5,8 @@
 
 package Sintactico.Arbol;
 
+import Visitor.visitor;
+
 /**
  *
  * @author lidier
@@ -22,6 +24,8 @@ public class AST_MethodDecl_Void_R extends AST_MethodDecl_Void{
         this.id=id;
         this.N_MethodDecl_Body = mb;
     }
-    
-
+    @Override
+   public Object visit(visitor v){
+        return v.visitMethodDecl_Void_R(this);
+    }
 }

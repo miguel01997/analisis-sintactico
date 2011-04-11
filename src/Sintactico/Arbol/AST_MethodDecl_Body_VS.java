@@ -22,6 +22,10 @@ public class AST_MethodDecl_Body_VS extends AST_MethodDecl_Body {
         this.V = V;
         this.S = S;
     }
+    
+    public Object visit(visitor v){
+        return v.visitMethodDecl_Body_VS(this);
+    }
 
 
     

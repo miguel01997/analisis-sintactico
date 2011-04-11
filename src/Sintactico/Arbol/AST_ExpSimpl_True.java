@@ -11,5 +11,9 @@ import Visitor.*;
  * @author lidier
  */
 public class AST_ExpSimpl_True extends AST_ExpSimpl {
+    
+    public Object visit(visitor v){
+        return v.visitExpSimpl_True(this);
+    }
 
 }

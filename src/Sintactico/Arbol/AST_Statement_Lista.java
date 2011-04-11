@@ -5,6 +5,8 @@
 
 package Sintactico.Arbol;
 
+import Visitor.visitor;
+
 /**
  *
  * @author lidier
@@ -22,6 +24,8 @@ public class AST_Statement_Lista extends AST_Statement {
         this.extN = extN;
     }
 
-    
+    public Object visit(visitor v){
+        return v.visitStatement_Lista(this);
+    }
 
 }

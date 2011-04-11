@@ -5,6 +5,8 @@
 
 package Sintactico.Arbol;
 
+import Visitor.visitor;
+
 /**
  *
  * @author lidier
@@ -17,6 +19,8 @@ public class AST_Program_M extends AST_Program {
     public AST_Program_M() {
     }
 
-
+    public Object visit(visitor v){
+        return v.visitProgram_M(this);
+    }
 
 }

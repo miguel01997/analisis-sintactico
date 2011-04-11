@@ -17,6 +17,8 @@ public class AST_ExpSimpl_IntegerLiteral extends AST_ExpSimpl {
     public AST_ExpSimpl_IntegerLiteral() {
     }
 
-
+public Object visit(visitor v){
+        return v.visitExpSimpl_IntegerLiteral(this);
+    }
 
 }

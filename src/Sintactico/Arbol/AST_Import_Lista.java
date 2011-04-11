@@ -17,6 +17,10 @@ public class AST_Import_Lista extends AST_Import {
 
     public AST_Import_Lista() {
     }
+    
+    public Object visit(visitor v){
+        return v.visitImport_Lista(this);
+    }
 
 
 

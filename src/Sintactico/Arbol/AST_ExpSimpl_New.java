@@ -17,7 +17,9 @@ public class AST_ExpSimpl_New extends AST_ExpSimpl {
 
     public AST_ExpSimpl_New() {
     }
-
-
+    
+    public Object visit(visitor v){
+        return v.visitExpSimpl_New(this);
+    }
 
 }

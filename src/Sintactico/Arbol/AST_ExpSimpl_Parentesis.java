@@ -16,6 +16,10 @@ public class AST_ExpSimpl_Parentesis extends AST_ExpSimpl {
 
     public AST_ExpSimpl_Parentesis() {
     }
+    
+    public Object visit(visitor v){
+        return v.visitExpSimpl_Parentesis(this);
+    }
 
     
 

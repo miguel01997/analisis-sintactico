@@ -10,7 +10,7 @@ import Visitor.*;
  *
  * @author lidier
  */
-public class AST_Exp_TerminalBody{
+public abstract class AST_Exp_TerminalBody{
 
     
 

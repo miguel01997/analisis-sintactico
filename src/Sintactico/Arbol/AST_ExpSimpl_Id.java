@@ -16,6 +16,10 @@ public class AST_ExpSimpl_Id extends AST_ExpSimpl {
 
     public AST_ExpSimpl_Id() {
     }
+    
+    public Object visit(visitor v){
+        return v.visitExpSimpl_Id(this);
+    }
 
     
 }

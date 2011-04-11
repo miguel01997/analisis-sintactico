@@ -17,6 +17,8 @@ public class AST_Exp_Op extends AST_Exp_TerminalBody_Simple {
 
     public AST_Exp_Op() {
     }
-
+    public Object visit(visitor v){
+        return v.visitExp_Op(this);
+    }
 
 }

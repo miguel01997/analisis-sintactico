@@ -11,5 +11,9 @@ import Visitor.*;
  * @author lidier
  */
 public class AST_Exp_TerminalBody_Simple extends AST_Exp_TerminalBody {
+    
+    public Object visit(visitor v){
+        return v.visitExp_TerminalBody_Simple(this);
+    }
 
 }

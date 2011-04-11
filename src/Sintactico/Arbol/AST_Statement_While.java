@@ -5,6 +5,8 @@
 
 package Sintactico.Arbol;
 
+import Visitor.visitor;
+
 /**
  *
  * @author lidier
@@ -17,6 +19,9 @@ public class AST_Statement_While extends AST_Statement_Simple {
 
     public AST_Statement_While() {
     }
-    
+    @Override
+    public Object visit(visitor v){
+        return v.visitStatement_While(this);
+    }
     
 }

@@ -17,7 +17,9 @@ public class AST_Exp_Id extends AST_Exp_TerminalBody_Simple {
 
     public AST_Exp_Id() {
     }
-
+    public Object visit(visitor v){
+        return v.visitExp_Id(this);
+    }
     
 
 }

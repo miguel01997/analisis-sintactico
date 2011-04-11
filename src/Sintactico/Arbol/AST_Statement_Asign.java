@@ -5,6 +5,8 @@
 
 package Sintactico.Arbol;
 
+import Visitor.visitor;
+
 /**
  *
  * @author lidier
@@ -16,6 +18,8 @@ public class AST_Statement_Asign extends AST_Statement_Id {
     public AST_Statement_Asign() {
     }
      
-     
+     public Object visit(visitor v){
+        return v.visitStatement_Asign(this);
+    }
 
 }
