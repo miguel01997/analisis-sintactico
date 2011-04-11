@@ -12,8 +12,8 @@ import Visitor.*;
  */
 public class AST_BodyDecl_Lista extends AST_BodyDecl{
 
-    AST_BodyDecl N_BodyDecl;
-    AST_BodyDecl sig;
+    public AST_BodyDecl N_BodyDecl;
+    public AST_BodyDecl sig;
 
     public AST_BodyDecl_Lista() {
     }
