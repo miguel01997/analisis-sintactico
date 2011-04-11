@@ -13,7 +13,7 @@ import Visitor.visitor;
  */
 public abstract class AST_Exp {
 
-    public AST_ExpSimpl N_ExpSimpl;
+    //public AST_ExpSimpl N_ExpSimpl;
 
     public abstract Object visit(visitor v);
 }

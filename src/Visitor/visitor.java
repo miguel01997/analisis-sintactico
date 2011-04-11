@@ -47,6 +47,7 @@ public interface visitor {
     public Object visitImport_Simple (AST_Import_Simple N);
     public Object visitMain (AST_Main N);
     public Object visitMethodDecl(AST_MethodDecl N);
+    public Object visitMethodDecl_Body(AST_MethodDecl_Body N);
     public Object visitMethodDecl_Body_S (AST_MethodDecl_Body_S N);
     public Object visitMethodDecl_Body_VS (AST_MethodDecl_Body_VS N);
     public Object visitMethodDecl_Body_V (AST_MethodDecl_Body_V N);
