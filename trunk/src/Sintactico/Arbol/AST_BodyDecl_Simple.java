@@ -9,7 +9,7 @@ package Sintactico.Arbol;
  *
  * @author lidier
  */
-public class AST_BodyDecl_Simple extends AST_BodyDecl {
+public abstract class AST_BodyDecl_Simple extends AST_BodyDecl {
 
 
 

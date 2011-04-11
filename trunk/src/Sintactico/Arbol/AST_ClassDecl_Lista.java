@@ -4,6 +4,7 @@
  */
 
 package Sintactico.Arbol;
+import Visitor.*;
 
 /**
  *
@@ -17,6 +18,8 @@ public class AST_ClassDecl_Lista extends AST_ClassDecl {
     public AST_ClassDecl_Lista() {
     }
     
-    
+    public Object visit(visitor v){
+        return v.visitClassDecl_Lista(this);
+    }
 
 }

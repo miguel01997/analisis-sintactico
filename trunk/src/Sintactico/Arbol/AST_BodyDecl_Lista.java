@@ -4,6 +4,7 @@
  */
 
 package Sintactico.Arbol;
+import Visitor.*;
 
 /**
  *
@@ -21,8 +22,10 @@ public class AST_BodyDecl_Lista extends AST_BodyDecl{
         this.N_BodyDecl = N_BodyDecl;
         this.sig = sig;
     }
-
-
+    
+    public Object visit(visitor v){
+        return v.visitBodyDecl_Lista(this);
+    }
     
 
 }
