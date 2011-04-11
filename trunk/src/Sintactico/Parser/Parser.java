@@ -1,5 +1,6 @@
 package Sintactico.Parser;
 import Sintactico.Exceptions.ParserException;
+import Sintactico.Exceptions.ScannerException;
 import javax.swing.JOptionPane;
 import Sintactico.*;
 import Sintactico.Scanner.Scanner;
@@ -36,13 +37,21 @@ public class Parser
             token_actual = scanner.nextToken();
             if ((token_actual == null)&&(contllave!=0))
             {
-                throw new ParserException("Error en el analisis sintactico: Código incompleto");
+                throw new ParserException("Error en el analisis: Código incompleto");
             }
             //System.out.print("se leyo un token");
         } catch (IOException ex) {
             Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
+      }
+        catch (Sintactico.Exceptions.ScannerException e)
+        {
+            throw new ParserException("El parser no puede continuar debido a un error Scaneando");
+
         }
+
       
+
+
     
     
   }
