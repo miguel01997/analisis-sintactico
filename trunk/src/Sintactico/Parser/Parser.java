@@ -1,4 +1,5 @@
 package Sintactico.Parser;
+import Sintactico.Exceptions.ParserException;
 import javax.swing.JOptionPane;
 import Sintactico.*;
 import Sintactico.Scanner.Scanner;
@@ -14,7 +15,7 @@ public class Parser
   boolean importesmult, methodesid, methodesid2/*Para identificar si el id es de Vardecl o Statement*/ ;
   int contllave;
   
-  private void accept(int esperado) throws MyException 
+  private void accept(int esperado) throws ParserException 
   {
       if (token_actual.tipo == Sym.TllaveInicio)
           contllave++;
@@ -24,18 +25,18 @@ public class Parser
       {
            System.out.println("Error. Se esperaba " + errores(esperado) + " en su lugar viene " + errores(token_actual.tipo) + " en fila " + token_actual.fila + " y columna " + token_actual.columna + ".");
         //throw new MyException("Compilación Fallida");
-        throw new MyException("Error en el analisis sintactico. Se esperaba " + errores(esperado) + " en su lugar viene " + errores(token_actual.tipo) + " en fila " + token_actual.fila + " y columna " + token_actual.columna + ".");
+        throw new ParserException("Error en el analisis sintactico. Se esperaba " + errores(esperado) + " en su lugar viene " + errores(token_actual.tipo) + " en fila " + token_actual.fila + " y columna " + token_actual.columna + ".");
       }        
       else
           sigToken();
   }
 
-  private void sigToken() throws MyException {
+  private void sigToken() throws ParserException {
         try {
             token_actual = scanner.nextToken();
             if ((token_actual == null)&&(contllave!=0))
             {
-                throw new MyException("Error en el analisis sintactico: Código incompleto");
+                throw new ParserException("Error en el analisis sintactico: Código incompleto");
             }
             //System.out.print("se leyo un token");
         } catch (IOException ex) {
@@ -47,7 +48,7 @@ public class Parser
   }
 
 
-  public AST parse() throws MyException {
+  public AST parse() throws ParserException {
       AST arbol = null;
       sigToken();
     arbol = parseProgram();
@@ -55,7 +56,7 @@ public class Parser
     if (token_actual != null)
     {
       System.out.println("Basura al final del archivo");
-      throw new MyException("Error en el analisis sintactico: Basura al final del archivo");
+      throw new ParserException("Error en el analisis sintactico: Basura al final del archivo");
 
     }
     else
@@ -66,7 +67,7 @@ public class Parser
     }
 }
   
-  public AST_Program parseProgram() throws MyException
+  public AST_Program parseProgram() throws ParserException
   {
       AST_Program program = null;
       AST_Import I = null;
@@ -150,7 +151,7 @@ public class Parser
 
   }
   
-  public AST_Import parseImportdecl() throws MyException
+  public AST_Import parseImportdecl() throws ParserException
   {
       AST_Import I = null;
       AST_TypeName TN;
@@ -187,7 +188,7 @@ public class Parser
       return I;
   }
   
-  public AST_TypeName parseTypename() throws MyException
+  public AST_TypeName parseTypename() throws ParserException
   {
       AST_TypeName TN;
       AST_TypeName_Simple TNS = new AST_TypeName_Simple();
@@ -214,7 +215,7 @@ public class Parser
       return TN;
       }
   
-  public AST_Main parseMainclass() throws MyException
+  public AST_Main parseMainclass() throws ParserException
   {
     AST_Main M = new AST_Main();
     accept(Sym.Tclass);
@@ -237,7 +238,7 @@ public class Parser
     return M;
   }
   
-  public AST_ClassDecl parseClassdecl() throws MyException
+  public AST_ClassDecl parseClassdecl() throws ParserException
   {
       AST_ClassDecl c;
       AST_ClassDecl_Simple cs = new AST_ClassDecl_Simple();
@@ -267,7 +268,7 @@ public class Parser
     return c;
   }
   
-  public AST_BodyDecl parseBodydecl() throws MyException
+  public AST_BodyDecl parseBodydecl() throws ParserException
   {
       AST_BodyDecl B = null;
   
@@ -328,7 +329,7 @@ public class Parser
         
   }
   
-  public AST_VarDecl parseVardecl() throws MyException
+  public AST_VarDecl parseVardecl() throws ParserException
   {
       AST_VarDecl v = null;
       AST_VarDecl_Simple vs = new AST_VarDecl_Simple();
@@ -341,7 +342,7 @@ public class Parser
   }
   
 
-   public AST_ConstrDecl parseConstrdecl(String id) throws MyException
+   public AST_ConstrDecl parseConstrdecl(String id) throws ParserException
   {
 
       AST_ConstrDecl C = null;
@@ -432,7 +433,7 @@ public class Parser
   }
    
   
-  public AST_MethodDecl parseMethoddecl(String id) throws MyException
+  public AST_MethodDecl parseMethoddecl(String id) throws ParserException
   {
 
       AST_Type tipo = null;
@@ -466,7 +467,7 @@ public class Parser
       else if (token_actual.tipo == Sym.Tvoid)
           sigToken();
       else
-          throw new MyException("Error en el analisis sintactico. Se esperaba un void, boolean, int o ID, en su lugar viene " + errores(token_actual.tipo) + " en fila " + token_actual.fila + " y columna " + token_actual.columna + ".");
+          throw new ParserException("Error en el analisis sintactico. Se esperaba un void, boolean, int o ID, en su lugar viene " + errores(token_actual.tipo) + " en fila " + token_actual.fila + " y columna " + token_actual.columna + ".");
       }
       idlocal=token_actual.lexema.toString();
       accept(Sym.Tidentifier);
@@ -581,7 +582,7 @@ public class Parser
       return Md;
   }
     
-  public AST_FormalList parseFormallist() throws MyException
+  public AST_FormalList parseFormallist() throws ParserException
   {
       AST_FormalList fl = null;
       if ((token_actual.tipo == Sym.Tint) || (token_actual.tipo == Sym.Tboolean) || (token_actual.tipo == Sym.Tidentifier))
@@ -608,7 +609,7 @@ public class Parser
       return fl;
   }
       
-  public AST_Type parseType() throws MyException
+  public AST_Type parseType() throws ParserException
   {
       AST_Type t;
       if (token_actual.tipo == Sym.Tint)
@@ -645,11 +646,11 @@ public class Parser
           sigToken(); 
       }
       else
-          throw new MyException("Error en el analisis sintactico. Se esperaba un entero, un boolean o un identificador, en su lugar viene " + errores(token_actual.tipo) + " en fila " + token_actual.fila + " y columna " + token_actual.columna + ".");
+          throw new ParserException("Error en el analisis sintactico. Se esperaba un entero, un boolean o un identificador, en su lugar viene " + errores(token_actual.tipo) + " en fila " + token_actual.fila + " y columna " + token_actual.columna + ".");
       return t;
   }
   
-  public AST_Statement parseStatement(String id) throws MyException
+  public AST_Statement parseStatement(String id) throws ParserException
   {
       AST_Statement s = null;
       if (methodesid2)
@@ -743,7 +744,7 @@ public class Parser
       {
           sigToken();
           if (token_actual.tipo != Sym.Tpunto)
-              throw new MyException("Error en el analisis sintactico. Se esperaba un statement, en su lugar viene " + errores(token_actual.tipo) + " en fila " + token_actual.fila + " y columna " + token_actual.columna + ".");
+              throw new ParserException("Error en el analisis sintactico. Se esperaba un statement, en su lugar viene " + errores(token_actual.tipo) + " en fila " + token_actual.fila + " y columna " + token_actual.columna + ".");
           sigToken();
 
           if (token_actual.tipo == Sym.Tout)
@@ -751,7 +752,7 @@ public class Parser
               AST_Statement_SOP ssop = new AST_Statement_SOP();
               sigToken();
               if (token_actual.tipo != Sym.Tpunto)
-                    throw new MyException("Error en el analisis sintactico. Se esperaba un statement, en su lugar viene " + errores(token_actual.tipo) + " en fila " + token_actual.fila + " y columna " + token_actual.columna + ".");
+                    throw new ParserException("Error en el analisis sintactico. Se esperaba un statement, en su lugar viene " + errores(token_actual.tipo) + " en fila " + token_actual.fila + " y columna " + token_actual.columna + ".");
               sigToken();
 
               accept(Sym.Tprintln);
@@ -773,7 +774,7 @@ public class Parser
                accept(Sym.TpuntoYcoma);
                s=sse;
           }
-          else throw new MyException("Error en el analisis sintactico. Se esperaba un statement, en su lugar viene " + errores(token_actual.tipo) + " en fila " + token_actual.fila + " y columna " + token_actual.columna + ".");
+          else throw new ParserException("Error en el analisis sintactico. Se esperaba un statement, en su lugar viene " + errores(token_actual.tipo) + " en fila " + token_actual.fila + " y columna " + token_actual.columna + ".");
       }
       else if (token_actual.tipo == Sym.TparentesisInicio)
       {
@@ -848,13 +849,13 @@ public class Parser
               s=SII;
       }
       else
-           throw new MyException("Error en el analisis sintactico. Se esperaba un statement, en su lugar viene " + errores(token_actual.tipo) + " en fila " + token_actual.fila + " y columna " + token_actual.columna + ".");
+           throw new ParserException("Error en el analisis sintactico. Se esperaba un statement, en su lugar viene " + errores(token_actual.tipo) + " en fila " + token_actual.fila + " y columna " + token_actual.columna + ".");
 
       return s;
       
   }
     
-  public AST_Exp parseExp() throws MyException
+  public AST_Exp parseExp() throws ParserException
   {
       AST_Exp Ex = null;
       AST_ExpSimpl ExS = parseExpSimpl();
@@ -905,7 +906,7 @@ public class Parser
               expT = ei;
           }
           else
-             throw new MyException("Error en el analisis sintactico. Se esperaba un identificador o length, en su lugar viene " + errores(token_actual.tipo) + " en fila " + token_actual.fila + " y columna " + token_actual.columna + ".");
+             throw new ParserException("Error en el analisis sintactico. Se esperaba un identificador o length, en su lugar viene " + errores(token_actual.tipo) + " en fila " + token_actual.fila + " y columna " + token_actual.columna + ".");
       }
 
        if (ExT == null)
@@ -930,7 +931,7 @@ public class Parser
   }
   
   
-  public AST_ExpSimpl parseExpSimpl() throws MyException
+  public AST_ExpSimpl parseExpSimpl() throws ParserException
   {
       AST_ExpSimpl Ex = null;
       
@@ -989,7 +990,7 @@ public class Parser
               Ex = e;
           }
           else
-             throw new MyException("Error en el analisis sintactico. Se esperaba una un entero o identificador, en su lugar viene " + errores(token_actual.tipo) + " en fila " + token_actual.fila + " y columna " + token_actual.columna + ".");
+             throw new ParserException("Error en el analisis sintactico. Se esperaba una un entero o identificador, en su lugar viene " + errores(token_actual.tipo) + " en fila " + token_actual.fila + " y columna " + token_actual.columna + ".");
 
       }
       else if (token_actual.tipo == Sym.Tnegacion)
@@ -1016,13 +1017,13 @@ public class Parser
           Ex = e;
       }
       else
-          throw new MyException("Error en el analisis sintactico. Se esperaba una expresión, en su lugar viene " + errores(token_actual.tipo) + " en fila " + token_actual.fila + " y columna " + token_actual.columna + ".");
+          throw new ParserException("Error en el analisis sintactico. Se esperaba una expresión, en su lugar viene " + errores(token_actual.tipo) + " en fila " + token_actual.fila + " y columna " + token_actual.columna + ".");
       
       return Ex;
 
   }
     
-  public AST_ExpList parseExplist() throws MyException
+  public AST_ExpList parseExplist() throws ParserException
   {
       AST_ExpList el = null;
       AST_ExpList_Simple els = new AST_ExpList_Simple();
@@ -1047,7 +1048,7 @@ public class Parser
       return el;
   }
     
-  public AST_Op parseOp() throws MyException
+  public AST_Op parseOp() throws ParserException
   {
       AST_Op o= new AST_Op();
       o.Num_Op = token_actual.tipo;
@@ -1154,7 +1155,7 @@ public class Parser
     Parser p = new Parser();
     p.parse();
     }
-    catch(MyException e)
+    catch(ParserException e)
     {System.out.println(e);}
     
   

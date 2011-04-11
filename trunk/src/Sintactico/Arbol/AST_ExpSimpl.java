@@ -5,10 +5,14 @@
 
 package Sintactico.Arbol;
 
+import Visitor.visitor;
+
 /**
  *
  * @author lidier
  */
 public abstract class AST_ExpSimpl extends AST_Exp{
+    
+    public abstract Object visit(visitor v);
 
 }

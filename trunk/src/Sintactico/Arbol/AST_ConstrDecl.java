@@ -5,6 +5,8 @@
 
 package Sintactico.Arbol;
 
+import Visitor.visitor;
+
 /**
  *
  * @author lidier
@@ -15,6 +17,11 @@ public class AST_ConstrDecl extends AST_BodyDecl_Simple {
   public AST_FormalList N_FormalList;
 
     public AST_ConstrDecl() {
+    }
+
+    @Override
+    public Object visit(visitor v) {
+        return v.visitConstrDecl(this);
     }
 
 

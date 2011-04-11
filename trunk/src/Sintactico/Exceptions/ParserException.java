@@ -1,14 +1,14 @@
-package Sintactico;
+package Sintactico.Exceptions;
 import javax.swing.JOptionPane;
 
-public class MyException extends Exception
+public class ParserException extends Exception
 {
-  public MyException(String mensaje)
+  public ParserException(String mensaje)
   {
    super(mensaje);
    JOptionPane.showMessageDialog(null, mensaje, "Error Sintáctico", 0);
   }
-  public MyException(String mensaje, int tipo, String titulo)
+  public ParserException(String mensaje, int tipo, String titulo)
   {
    super(mensaje);
    JOptionPane.showMessageDialog(null, mensaje, titulo, tipo);

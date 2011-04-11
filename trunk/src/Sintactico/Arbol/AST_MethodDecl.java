@@ -5,6 +5,8 @@
 
 package Sintactico.Arbol;
 
+import Visitor.visitor;
+
 /**
  *
  * @author lidier
@@ -22,6 +24,10 @@ public abstract class AST_MethodDecl extends AST_BodyDecl_Simple {
         this.id = id;
         this.N_FormalList = N_FormalList;
         this.N_MethodDecl_Body = N_MethodDecl_Body;
+    }
+    
+    public Object visit(visitor v){
+        return v.visitMethodDecl(this);
     }
 
 

@@ -5,13 +5,15 @@
 
 package Sintactico.Arbol;
 
+import Visitor.visitor;
+
 /**
  *
  * @author lidier
  */
 public abstract class AST_BodyDecl {
 
-    
+    public abstract Object visit(visitor v);
     
 
 }
