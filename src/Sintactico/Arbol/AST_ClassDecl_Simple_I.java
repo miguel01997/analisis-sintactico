@@ -4,6 +4,7 @@
  */
 
 package Sintactico.Arbol;
+import Visitor.*;
 
 /**
  *
@@ -17,6 +18,9 @@ public class AST_ClassDecl_Simple_I extends AST_ClassDecl_Simple {
     public AST_ClassDecl_Simple_I() {
     }
     
-
+    @Override
+    public Object visit(visitor v){
+        return v.visitClassDecl_Simple_I(this);
+    }
 
 }
