@@ -9,6 +9,6 @@ package Sintactico.Arbol;
  *
  * @author lidier
  */
-public class AST_ExpSimpl extends AST_Exp{
+public abstract class AST_ExpSimpl extends AST_Exp{
 
 }

@@ -9,9 +9,12 @@ package Sintactico.Arbol;
  *
  * @author lidier
  */
-public abstract class AST_Exp {
+public class AST_ExpList_Simple extends AST_ExpList{
 
-    public AST_ExpSimpl N_ExpSimpl;
+   public AST_Exp N_Exp;
 
+    public AST_ExpList_Simple() {
+    }
+   
 
 }

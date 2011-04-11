@@ -7,14 +7,8 @@ package Sintactico.Arbol;
 
 /**
  *
- * @author lidier
+ * @author Javier
  */
-public class AST_ExpList {
-
-   public AST_Exp N_Exp;
-
-    public AST_ExpList() {
-    }
-   
+public abstract class AST_ExpList {
 
 }
