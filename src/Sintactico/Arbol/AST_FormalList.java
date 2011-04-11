@@ -5,10 +5,13 @@
 
 package Sintactico.Arbol;
 
+import Visitor.visitor;
+
 /**
  *
  * @author Javier
  */
 public abstract class AST_FormalList {
 
+    public abstract Object visit(visitor v);
 }

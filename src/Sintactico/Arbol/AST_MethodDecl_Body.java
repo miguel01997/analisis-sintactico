@@ -12,4 +12,5 @@ import Visitor.*;
  */
 public abstract class AST_MethodDecl_Body {
 
+    public abstract Object visit(visitor v);
 }

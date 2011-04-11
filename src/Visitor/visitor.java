@@ -17,6 +17,7 @@ public interface visitor {
     public Object visitClassDecl_Simple (AST_ClassDecl_Simple N);
     public Object visitClassDecl_Simple_E (AST_ClassDecl_Simple_E N);
     public Object visitClassDecl_Simple_I (AST_ClassDecl_Simple_I N);
+    public Object visitConstrDecl(AST_ConstrDecl N);
     public Object visitConstrDecl_S (AST_ConstrDecl_S N);
     public Object visitConstrDecl_V (AST_ConstrDecl_V N);
     public Object visitConstrDecl_VS (AST_ConstrDecl_VS N);
@@ -45,6 +46,7 @@ public interface visitor {
     public Object visitImport_Lista (AST_Import_Lista N);
     public Object visitImport_Simple (AST_Import_Simple N);
     public Object visitMain (AST_Main N);
+    public Object visitMethodDecl(AST_MethodDecl N);
     public Object visitMethodDecl_Body_S (AST_MethodDecl_Body_S N);
     public Object visitMethodDecl_Body_VS (AST_MethodDecl_Body_VS N);
     public Object visitMethodDecl_Body_V (AST_MethodDecl_Body_V N);
@@ -77,4 +79,5 @@ public interface visitor {
     public Object visitTypeName_Simple (AST_TypeName_Simple N);
     public Object visitVarDecl_Lista (AST_VarDecl_Lista N);
     public Object visitVarDecl_Simple (AST_VarDecl_Simple N);
+    
 }
