@@ -16,7 +16,10 @@ public class AST_ExpSimpl_Negacion extends AST_ExpSimpl {
 
     public AST_ExpSimpl_Negacion() {
     }
-
+    
+    public Object visit(visitor v){
+        return v.visitExpSimpl_Negacion(this);
+    }
     
 
 }

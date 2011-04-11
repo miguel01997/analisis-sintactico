@@ -5,6 +5,8 @@
 
 package Sintactico.Arbol;
 
+import Visitor.visitor;
+
 /**
  *
  * @author lidier
@@ -16,7 +18,9 @@ public class AST_Statement_SE extends AST_Statement_Simple {
     public AST_Statement_SE() {
     }
     
-    
+    public Object visit(visitor v){
+        return v.visitStatement_SE(this);
+    }
 
 
 }

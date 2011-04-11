@@ -13,5 +13,9 @@ import Visitor.*;
 public class AST_Import_Simple extends AST_Import{
 
     public AST_TypeName N_TypeName;
+    
+    public Object visit(visitor v){
+        return v.visitImport_Simple(this);
+    }
 
 }

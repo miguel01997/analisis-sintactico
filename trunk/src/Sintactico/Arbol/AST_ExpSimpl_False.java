@@ -12,4 +12,7 @@ import Visitor.*;
  */
 public class AST_ExpSimpl_False extends AST_ExpSimpl {
 
+    public Object visit(visitor v){
+        return v.visitExpSimpl_False(this);
+    }
 }

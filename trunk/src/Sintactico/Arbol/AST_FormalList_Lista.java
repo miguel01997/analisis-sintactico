@@ -18,5 +18,9 @@ public class AST_FormalList_Lista extends AST_FormalList{
     public AST_FormalList_Lista() {
     }
     
+    public Object visit(visitor v){
+        return v.visitFormalList_Lista(this);
+    }
+    
     
 }

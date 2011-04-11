@@ -17,5 +17,7 @@ public class AST_ExpList_Simple extends AST_ExpList{
     public AST_ExpList_Simple() {
     }
    
-
+    public Object visit(visitor v){
+        return v.visitExpList_Simple(this);
+    }
 }

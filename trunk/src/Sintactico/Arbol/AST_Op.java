@@ -5,6 +5,8 @@
 
 package Sintactico.Arbol;
 
+import Visitor.visitor;
+
 /**
  *
  * @author lidier
@@ -17,6 +19,10 @@ public class AST_Op {
     public int Num_Op;
 
     public AST_Op() {
+    }
+    
+    public Object visit(visitor v){
+        return v.visitOp(this);
     }
 
     

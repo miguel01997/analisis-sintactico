@@ -25,7 +25,10 @@ public class AST_MethodDecl_Type_R extends AST_MethodDecl_Type {
         this.N_Type=N_Type;
     }
     
-    
+    @Override
+    public Object visit(visitor v){
+        return v.visitMethodDecl_Type_R(this);
+    }
 
 
 }

@@ -5,6 +5,8 @@
 
 package Sintactico.Arbol;
 
+import Visitor.visitor;
+
 /**
  *
  * @author lidier
@@ -21,7 +23,9 @@ public class AST_VarDecl_Lista extends AST_VarDecl {
         this.N_VarDecl = N_VarDecl;
         this.extN = extN;
     }
-    
+    public Object visit(visitor v){
+        return v.visitVarDecl_Lista(this);
+    }
 
 
 

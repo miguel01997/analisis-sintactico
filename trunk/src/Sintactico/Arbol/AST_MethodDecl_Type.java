@@ -24,7 +24,9 @@ public class AST_MethodDecl_Type extends AST_MethodDecl {
         this.id = id;
     }
     
-    
+    public Object visit(visitor v){
+        return v.visitMethodDecl_Type(this);
+    }
     
 
 }

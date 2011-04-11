@@ -22,7 +22,9 @@ public class AST_Exp_TerminalBody_Lista extends AST_Exp_TerminalBody{
         this.N_Exp_Terminal = N_Exp_Terminal;
         this.extN = extN;
     }
-
+    public Object visit(visitor v){
+        return v.visitExp_TerminalBody_Lista(this);
+    }
 
 
 }

@@ -22,7 +22,9 @@ public class AST_Exp_Terminal extends AST_Exp {
         this.N_ExpSimpl2 = N_ExpSimpl;
         this.N_Body = N_Body;
     }
-
+    public Object visit(visitor v){
+        return v.visitExp_Terminal(this);
+    }
 
 
     

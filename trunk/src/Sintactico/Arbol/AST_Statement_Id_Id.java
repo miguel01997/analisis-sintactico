@@ -5,6 +5,8 @@
 
 package Sintactico.Arbol;
 
+import Visitor.visitor;
+
 /**
  *
  * @author lidier
@@ -17,6 +19,10 @@ public class AST_Statement_Id_Id extends AST_Statement_Id {
     public AST_Statement_Id_Id() {
     }
 
+    @Override
+    public Object visit(visitor v){
+        return v.visitStatement_Id_Id(this);
+    }
     
 
 }

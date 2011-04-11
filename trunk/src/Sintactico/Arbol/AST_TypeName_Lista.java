@@ -5,6 +5,8 @@
 
 package Sintactico.Arbol;
 
+import Visitor.visitor;
+
 /**
  *
  * @author lidier
@@ -17,7 +19,9 @@ public class AST_TypeName_Lista extends AST_TypeName {
     public AST_TypeName_Lista() {
     }
 
-    
+    public Object visit(visitor v){
+        return v.visitTypeName_Lista(this);
+    }
 
 
 }

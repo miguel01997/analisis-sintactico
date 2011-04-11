@@ -13,7 +13,10 @@ import Visitor.*;
 public class AST_Import_Asterisco extends AST_Import_Simple{
 
     
-    
+    @Override
+    public Object visit(visitor v){
+        return v.visitImport_Asterisco(this);
+    }
 
  
 

@@ -18,6 +18,8 @@ public class AST_ExpList_Lista extends AST_ExpList {
     public AST_ExpList_Lista() {
     }
     
-    
+    public Object visit(visitor v){
+        return v.visitExpList_Lista(this);
+    }
 
 }

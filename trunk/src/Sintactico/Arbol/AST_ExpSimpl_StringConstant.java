@@ -17,7 +17,9 @@ public class AST_ExpSimpl_StringConstant extends AST_ExpSimpl {
     public AST_ExpSimpl_StringConstant() {
     }
 
-    
+    public Object visit(visitor v){
+        return v.visitExpSimpl_StringConstant(this);
+    }
     
 
 }

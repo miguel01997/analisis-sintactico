@@ -16,6 +16,10 @@ public class AST_ExpSimpl_NewInt extends AST_ExpSimpl {
 
     public AST_ExpSimpl_NewInt() {
     }
+    
+    public Object visit(visitor v){
+        return v.visitExpSimpl_NewInt(this);
+    }
 
     
 
