@@ -21,7 +21,12 @@ public class AccionImprimir extends AbstractAction
    {
       String texto = areaTexto.getText();
       InputStream stream = new ByteArrayInputStream(texto.getBytes());
-      Sintactico.Parser.Parser.main(stream);
+      Sintactico.Arbol.AST arbol = Sintactico.Parser.Parser.main(stream);
+      
+      Visitor.imprimir_visitor instancia_imp = new Visitor.imprimir_visitor();
+      instancia_imp.imprimir(arbol);
+
+
    }
 
     public AccionImprimir(JTextComponent areaTexto)
