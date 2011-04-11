@@ -39,7 +39,7 @@ public interface visitor {
     public Object visitExp_Op (AST_Exp_Op N);
     public Object visitExp_Terminal (AST_Exp_Terminal N);
     public Object visitExp_TerminalBody_Lista (AST_Exp_TerminalBody_Lista N);
-    public Object visitExp_TerminalBody_Simple (AST_Exp_TerminalBody_Simple N);
+    //public Object visitExp_TerminalBody_Simple (AST_Exp_TerminalBody_Simple N);
     public Object visitFormalList_Simple (AST_FormalList_Simple N);
     public Object visitFormalList_Lista (AST_FormalList_Lista N);
     public Object visitImport_Asterisco (AST_Import_Asterisco N);
