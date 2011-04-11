@@ -10,7 +10,15 @@ import Visitor.*;
  *
  * @author lidier
  */
-public abstract class AST_MethodDecl_Body {
+public class AST_MethodDecl_Body {
 
-    public abstract Object visit(visitor v);
+    public AST_MethodDecl_Body() {
+    }
+
+
+    public Object visit(visitor v)
+    {
+        return v.visitMethodDecl_Body(this);
+    }
+
 }

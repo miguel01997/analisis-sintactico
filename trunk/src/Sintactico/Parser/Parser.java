@@ -550,7 +550,8 @@ public class Parser
       {
           if (BSD==null)
           {
-              
+              AST_MethodDecl_Body mbs = new AST_MethodDecl_Body();
+              Mbody = mbs;
           }
           else
           {
@@ -666,19 +667,23 @@ public class Parser
       {
           if ((token_actual.tipo == Sym.TcorcheteInicio)||(token_actual.tipo == Sym.Tigual))
           {
-              AST_Statement_Asign_Compuesto sac = new AST_Statement_Asign_Compuesto();
-              AST_Statement_Asign sa = new AST_Statement_Asign();
+              AST_Statement_Asign_Compuesto sac = null;
+              AST_Statement_Asign sa = null;
 
           if (token_actual.tipo == Sym.TcorcheteInicio)
           {
+            sac = new AST_Statement_Asign_Compuesto();
             sac.N_Exp=parseExp();
             sac.id = id;
             accept(Sym.TcorcheteFinal);
+            s = sac;
+
           }
           
           accept(Sym.Tigual);
           if (sac == null)
           {
+          sa = new AST_Statement_Asign();
           sa.N_Final_Exp=parseExp();
           sa.id=id;
           s = sa;

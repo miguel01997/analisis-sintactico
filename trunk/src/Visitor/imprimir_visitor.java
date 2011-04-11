@@ -117,7 +117,8 @@ public class imprimir_visitor implements visitor{
 
     public Object visitConstrDecl_VS(AST_ConstrDecl_VS N) {
         DefaultMutableTreeNode v = new DefaultMutableTreeNode(N.getClass().getName());
-        v.add((MutableTreeNode)N.N_FormalList.visit(this));
+        if (N.N_FormalList != null)
+            v.add((MutableTreeNode)N.N_FormalList.visit(this));
         v.add((MutableTreeNode)N.N_Statement.visit(this));
         v.add((MutableTreeNode)N.N_VarDecl.visit(this));
         v.add(new DefaultMutableTreeNode(N.id));
@@ -139,19 +140,17 @@ public class imprimir_visitor implements visitor{
 
     public Object visitExpSimpl_False(AST_ExpSimpl_False N) {
         DefaultMutableTreeNode v = new DefaultMutableTreeNode(N.getClass().getName());
-        v.add((MutableTreeNode)N.N_ExpSimpl.visit(this));
         return v;
     }
 
     public Object visitExpSimpl_Id(AST_ExpSimpl_Id N) {
         DefaultMutableTreeNode v = new DefaultMutableTreeNode(N.getClass().getName());
-        v.add((MutableTreeNode)N.N_ExpSimpl.visit(this));
+        v.add(new DefaultMutableTreeNode(N.id));
         return v;
     }
 
     public Object visitExpSimpl_IntegerLiteral(AST_ExpSimpl_IntegerLiteral N) {
         DefaultMutableTreeNode v = new DefaultMutableTreeNode(N.getClass().getName());
-        v.add((MutableTreeNode)N.N_ExpSimpl.visit(this));
         v.add(new DefaultMutableTreeNode(String.valueOf(N.N_IntegerLiteral)));
         return v;
     }
@@ -159,14 +158,13 @@ public class imprimir_visitor implements visitor{
     public Object visitExpSimpl_Negacion(AST_ExpSimpl_Negacion N) {
         DefaultMutableTreeNode v = new DefaultMutableTreeNode(N.getClass().getName());
         v.add((MutableTreeNode)N.N_Exp.visit(this));
-        v.add((MutableTreeNode)N.N_ExpSimpl.visit(this));
         return v;
     }
 
     public Object visitExpSimpl_New(AST_ExpSimpl_New N) {
         DefaultMutableTreeNode v = new DefaultMutableTreeNode(N.getClass().getName());
-        v.add((MutableTreeNode)N.N_ExpList.visit(this));
-        v.add((MutableTreeNode)N.N_ExpSimpl.visit(this));
+        if (N.N_ExpList != null)
+            v.add((MutableTreeNode)N.N_ExpList.visit(this));
         v.add(new DefaultMutableTreeNode(N.id));
         return v;
     }
@@ -174,33 +172,28 @@ public class imprimir_visitor implements visitor{
     public Object visitExpSimpl_NewInt(AST_ExpSimpl_NewInt N) {
         DefaultMutableTreeNode v = new DefaultMutableTreeNode(N.getClass().getName());
         v.add((MutableTreeNode)N.N_Exp.visit(this));
-        v.add((MutableTreeNode)N.N_ExpSimpl.visit(this));
         return v;
     }
 
     public Object visitExpSimpl_Parentesis(AST_ExpSimpl_Parentesis N) {
         DefaultMutableTreeNode v = new DefaultMutableTreeNode(N.getClass().getName());
         v.add((MutableTreeNode)N.N_Exp.visit(this));
-        v.add((MutableTreeNode)N.N_ExpSimpl.visit(this));
         return v;
     }
 
     public Object visitExpSimpl_StringConstant(AST_ExpSimpl_StringConstant N) {
         DefaultMutableTreeNode v = new DefaultMutableTreeNode(N.getClass().getName());
-        v.add((MutableTreeNode)N.N_ExpSimpl.visit(this));
         v.add(new DefaultMutableTreeNode(N.N_StringConstant));
         return v;
     }
 
     public Object visitExpSimpl_This(AST_ExpSimpl_This N) {
         DefaultMutableTreeNode v = new DefaultMutableTreeNode(N.getClass().getName());
-        v.add((MutableTreeNode)N.N_ExpSimpl.visit(this));
         return v;
     }
 
     public Object visitExpSimpl_True(AST_ExpSimpl_True N) {
         DefaultMutableTreeNode v = new DefaultMutableTreeNode(N.getClass().getName());
-        v.add((MutableTreeNode)N.N_ExpSimpl.visit(this));
         return v;
     }
 
@@ -233,6 +226,7 @@ public class imprimir_visitor implements visitor{
     public Object visitExp_Terminal(AST_Exp_Terminal N) {
         DefaultMutableTreeNode v = new DefaultMutableTreeNode(N.getClass().getName());
         v.add((MutableTreeNode)N.N_ExpSimpl.visit(this));
+        v.add((MutableTreeNode)N.N_Body.visit(this));
         return v;
     }
 
@@ -293,6 +287,11 @@ public class imprimir_visitor implements visitor{
         v.add((MutableTreeNode)N.N_FormalList.visit(this));
         v.add((MutableTreeNode)N.N_MethodDecl_Body.visit(this));
         v.add(new DefaultMutableTreeNode(N.id));
+        return v;
+    }
+
+   public Object visitMethodDecl_Body(AST_MethodDecl_Body N) {
+        DefaultMutableTreeNode v = new DefaultMutableTreeNode(N.getClass().getName());
         return v;
     }
 
@@ -398,6 +397,7 @@ public class imprimir_visitor implements visitor{
         DefaultMutableTreeNode v = new DefaultMutableTreeNode(N.getClass().getName());
         v.add((MutableTreeNode)N.N_Main.visit(this));
 
+
         v.add((MutableTreeNode)N.N_ClassDecl.visit(this));
         
         return v;
@@ -502,9 +502,7 @@ public class imprimir_visitor implements visitor{
 
     public Object visitType_T(AST_Type_T N) {
         DefaultMutableTreeNode v = new DefaultMutableTreeNode(N.getClass().getName());
-        v.add(new DefaultMutableTreeNode(N.tipo.Tboolean.name()));
-        v.add(new DefaultMutableTreeNode(N.tipo.Tinteger.name()));
-        v.add(new DefaultMutableTreeNode(N.tipo.TintegerP.name()));
+        v.add(new DefaultMutableTreeNode(N.tipo.name()));
         return v;
     }
 
