@@ -10,6 +10,7 @@ import javax.swing.tree.*;
 import javax.swing.text.*;
 import Sintactico.Arbol.*;
 import java.awt.GridLayout;
+import java.awt.BorderLayout;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 
@@ -45,15 +46,7 @@ public class imprimir_visitor implements visitor{
       frame.getContentPane().add(addPanel, BorderLayout.SOUTH);
       frame.setVisible(true);
   }
-   public Object List_nor_classdec(Object o, List_nor_classdec arg) {
 
-        DefaultMutableTreeNode v = new DefaultMutableTreeNode(arg.getClass().getName() );
-        int numaux = ((Integer)o).intValue();
-        v.add((MutableTreeNode)arg.nodo.visit(this, new Integer(numaux+1)));
-        v.add((MutableTreeNode)arg.sig.visit(this, new Integer(numaux+1)));
-        return v;
-
-    }
     
     public Object visitBodyDecl_Lista(AST_BodyDecl_Lista N) {
         DefaultMutableTreeNode v = new DefaultMutableTreeNode(N.getClass().getName());
