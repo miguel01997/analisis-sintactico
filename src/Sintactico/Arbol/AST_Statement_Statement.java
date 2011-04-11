@@ -9,7 +9,7 @@ package Sintactico.Arbol;
  *
  * @author lidier
  */
-public class AST_Statement_Statement extends AST_Statement_Simple {
+public abstract class AST_Statement_Statement extends AST_Statement_Simple {
 
     
 

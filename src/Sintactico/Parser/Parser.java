@@ -1024,17 +1024,19 @@ public class Parser
     
   public AST_ExpList parseExplist() throws MyException
   {
-      AST_ExpList el = new AST_ExpList();
+      AST_ExpList el = null;
+      AST_ExpList_Simple els = new AST_ExpList_Simple();
       if ((token_actual.tipo == Sym.TintLiteral)||(token_actual.tipo == Sym.Ttrue)||(token_actual.tipo == Sym.Tfalse)||(token_actual.tipo == Sym.Tidentifier)||
               (token_actual.tipo == Sym.Tthis)||(token_actual.tipo == Sym.Tnew)||(token_actual.tipo == Sym.Tdiferente)||(token_actual.tipo == Sym.TparentesisInicio)||
               (token_actual.tipo == Sym.TstringConstant))
       {
           
-      el.N_Exp=parseExp();
+      els.N_Exp=parseExp();
+      el = els;
       while(token_actual.tipo == Sym.Tcoma)
       {
           sigToken();
-          AST_ExpList t= new AST_ExpList();
+          AST_ExpList_Simple t= new AST_ExpList_Simple();
           t.N_Exp=parseExp();
           AST_ExpList_Lista ell = new AST_ExpList_Lista();
           ell.N=el;
