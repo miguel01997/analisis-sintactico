@@ -68,7 +68,6 @@ public interface visitor {
     public Object visitStatement_SE (AST_Statement_SE N);
     public Object visitStatement_SIR (AST_Statement_SIR N);
     public Object visitStatement_SOP (AST_Statement_SOP N);
-    public Object visitStatement_Simple (AST_Statement_Simple N);
     public Object visitStatement_Statement_Lista (AST_Statement_Statement_Lista N);
     public Object visitStatement_Statement_Simple (AST_Statement_Statement_Simple N);
     public Object visitStatement_This (AST_Statement_This N);
