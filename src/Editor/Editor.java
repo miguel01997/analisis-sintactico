@@ -22,6 +22,7 @@ import javax.swing.text.DefaultEditorKit;
 
 public class Editor
 {
+
     /** 
      * Area de texto para escribir  
      */
