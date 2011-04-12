@@ -258,7 +258,8 @@ public class Parser
     {
         sigToken();
         AST_ClassDecl_Simple_I i = new AST_ClassDecl_Simple_I();
-        i.import_id=token_actual.lexema.toString();
+        i.implements_id=token_actual.lexema.toString();
+        i.id = cs.id;
         cs = i;
         accept(Sym.Tidentifier);
     }
@@ -267,6 +268,7 @@ public class Parser
         sigToken();
         AST_ClassDecl_Simple_E E = new AST_ClassDecl_Simple_E();
         E.extends_id=token_actual.lexema.toString();
+        E.id = cs.id;
         cs = E;
         accept(Sym.Tidentifier);
     }

@@ -87,7 +87,7 @@ public class imprimir_visitor implements visitor{
     public Object visitClassDecl_Simple_I(AST_ClassDecl_Simple_I N) {
         DefaultMutableTreeNode v = new DefaultMutableTreeNode(N.getClass().getName());
         v.add((MutableTreeNode)N.N_BodyDecl.visit(this));
-        v.add(new DefaultMutableTreeNode(N.import_id));
+        v.add(new DefaultMutableTreeNode(N.implements_id));
         v.add(new DefaultMutableTreeNode(N.id));
         return v;
     }
@@ -205,7 +205,8 @@ public class imprimir_visitor implements visitor{
 
     public Object visitExp_Id(AST_Exp_Id N) {
         DefaultMutableTreeNode v = new DefaultMutableTreeNode(N.getClass().getName());
-        v.add((MutableTreeNode)N.N_ExpList.visit(this));
+        if(N.N_ExpList != null)
+            v.add((MutableTreeNode)N.N_ExpList.visit(this));
         v.add(new DefaultMutableTreeNode(N.id));
         return v;
     }
