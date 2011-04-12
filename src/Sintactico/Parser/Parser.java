@@ -60,7 +60,12 @@ public class Parser
   public AST parse() throws ParserException {
       AST arbol = null;
       sigToken();
-    arbol = parseProgram();
+      if (token_actual != null)
+        arbol = parseProgram();
+      else
+      {
+          throw new ParserException("No se encontraron tokens");
+      }
     
     if (token_actual != null)
     {
