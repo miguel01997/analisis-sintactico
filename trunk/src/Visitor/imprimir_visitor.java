@@ -10,6 +10,7 @@ import javax.swing.*;
 import javax.swing.tree.*;
 import javax.swing.text.*;
 import Sintactico.Arbol.*;
+import javax.swing.JOptionPane;
 
 import java.awt.GridLayout;
 import java.awt.BorderLayout;
@@ -24,6 +25,8 @@ public class imprimir_visitor implements visitor{
     
   public void imprimir(AST raiz)
   {
+      if (raiz != null)
+      {
     DefaultMutableTreeNode root;
     root=new DefaultMutableTreeNode("AST");
     root.add((MutableTreeNode) raiz.visit(this));
@@ -48,7 +51,14 @@ public class imprimir_visitor implements visitor{
       frame.getContentPane().add(new JScrollPane(tree));
       frame.getContentPane().add(addPanel, BorderLayout.SOUTH);
       frame.setVisible(true);
-  }
+        }
+ else
+      {
+          System.out.println("No se puede imprimir el arbol debido a que no existen nodos");
+        JOptionPane.showMessageDialog(null,"No se puede imprimir el arbol debido a que no existen nodos","Imposible imprimir", 1);
+ 
+ }
+    }
 
     
     public Object visitBodyDecl_Lista(AST_BodyDecl_Lista N) {

@@ -201,6 +201,7 @@ public class Parser
   {
       AST_TypeName TN;
       AST_TypeName_Simple TNS = new AST_TypeName_Simple();
+      if(token_actual.tipo==Sym.Tidentifier)
       TNS.id = token_actual.lexema.toString();
       TN = TNS;
       accept(Sym.Tidentifier); //Aceptar un identificador
@@ -210,6 +211,7 @@ public class Parser
           if (token_actual.tipo != Sym.Tmultiplicacion)
           {
             AST_TypeName_Simple temp = new AST_TypeName_Simple();
+            if(token_actual.tipo==Sym.Tidentifier)
             temp.id = token_actual.lexema.toString();
             AST_TypeName_Lista l = new AST_TypeName_Lista();
             l.N=TN;
@@ -228,6 +230,7 @@ public class Parser
   {
     AST_Main M = new AST_Main();
     accept(Sym.Tclass);
+    if(token_actual.tipo==Sym.Tidentifier)
     M.id = token_actual.lexema.toString();
     accept(Sym.Tidentifier);
     accept(Sym.TllaveInicio); //aqui decia corcheteInicio, realmente {} esto son llaves
@@ -237,6 +240,7 @@ public class Parser
     accept(Sym.Tmain);
     accept(Sym.TparentesisInicio);
     accept(Sym.Tstring);
+    if(token_actual.tipo==Sym.Tidentifier)
     M.args = token_actual.lexema.toString();
     accept(Sym.Tidentifier);  //Esta linea faltaba, se tiene que aceptar un identificador
     accept(Sym.TparentesisFinal);
@@ -252,12 +256,14 @@ public class Parser
       AST_ClassDecl c;
       AST_ClassDecl_Simple cs = new AST_ClassDecl_Simple();
     accept(Sym.Tclass);
+    if(token_actual.tipo==Sym.Tidentifier)
     cs.id = token_actual.lexema.toString();
     accept(Sym.Tidentifier);
     if (token_actual.tipo == Sym.Timplements)
     {
         sigToken();
         AST_ClassDecl_Simple_I i = new AST_ClassDecl_Simple_I();
+        if(token_actual.tipo==Sym.Tidentifier)
         i.implements_id=token_actual.lexema.toString();
         i.id = cs.id;
         cs = i;
@@ -267,6 +273,7 @@ public class Parser
     {
         sigToken();
         AST_ClassDecl_Simple_E E = new AST_ClassDecl_Simple_E();
+        if(token_actual.tipo==Sym.Tidentifier)
         E.extends_id=token_actual.lexema.toString();
         E.id = cs.id;
         cs = E;
@@ -345,6 +352,7 @@ public class Parser
       AST_VarDecl v = null;
       AST_VarDecl_Simple vs = new AST_VarDecl_Simple();
       vs.N_Type=parseType();
+      if(token_actual.tipo==Sym.Tidentifier)
       vs.id = token_actual.lexema.toString();
       v = vs;
       accept(Sym.Tidentifier);
@@ -480,6 +488,7 @@ public class Parser
       else
           throw new ParserException("Error en el analisis sintactico. Se esperaba un void, boolean, int o ID, en su lugar viene " + errores(token_actual.tipo) + " en fila " + token_actual.fila + " y columna " + token_actual.columna + ".");
       }
+      if(token_actual.tipo==Sym.Tidentifier)
       idlocal=token_actual.lexema.toString();
       accept(Sym.Tidentifier);
       accept(Sym.TparentesisInicio);
@@ -601,6 +610,7 @@ public class Parser
       {
           AST_FormalList_Simple f = new AST_FormalList_Simple();
       f.N_Type = parseType();
+      if(token_actual.tipo==Sym.Tidentifier)
       f.id = token_actual.lexema.toString();
       fl = f;
       accept(Sym.Tidentifier);
@@ -610,6 +620,7 @@ public class Parser
           sigToken();
           AST_FormalList_Simple t = new AST_FormalList_Simple();
           t.N_Type=parseType();
+          if(token_actual.tipo==Sym.Tidentifier)
           t.id = token_actual.lexema.toString();
           AST_FormalList_Lista l = new AST_FormalList_Lista();
           l.N=fl;
@@ -702,6 +713,7 @@ public class Parser
               AST_Statement_Id_Id SII = new AST_Statement_Id_Id();
               SII.id=id;
               accept(Sym.Tpunto);
+              if(token_actual.tipo==Sym.Tidentifier)
               SII.id2=token_actual.lexema.toString();
               accept(Sym.Tidentifier);
               accept(Sym.TparentesisInicio);
@@ -783,6 +795,7 @@ public class Parser
               AST_Statement_SE sse = new AST_Statement_SE();
               sigToken();
               accept(Sym.TparentesisInicio);
+              if(token_actual.tipo==Sym.TintLiteral)
               sse.Int_Lit=Integer.parseInt(token_actual.lexema.toString());
               accept(Sym.TintLiteral);
           //acepte un numero cualquiera.... la otra manera era agregando el 0 por separado al SYM
