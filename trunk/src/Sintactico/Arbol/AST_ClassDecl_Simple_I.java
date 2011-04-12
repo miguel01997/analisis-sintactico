@@ -13,7 +13,7 @@ import Visitor.*;
 public class AST_ClassDecl_Simple_I extends AST_ClassDecl_Simple {
 
     
-    public String import_id;
+    public String implements_id;
 
     public AST_ClassDecl_Simple_I() {
     }
