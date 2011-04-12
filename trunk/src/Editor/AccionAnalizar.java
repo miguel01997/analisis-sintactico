@@ -25,15 +25,15 @@ public class AccionAnalizar extends AbstractAction
 
     public void actionPerformed (ActionEvent e)
    {
-      String texto = areaTexto.getText();
+           String texto = areaTexto.getText();
       InputStream stream = new ByteArrayInputStream(texto.getBytes());
-      Sintactico.Scanner.Scanner.main(stream);
+      Sintactico.Parser.Parser.main(stream);
    }
 
     public AccionAnalizar(JTextComponent areaTexto)
     {
         this.areaTexto = areaTexto;
-        this.putValue(Action.NAME, "Analizar sintacticamente");
+        this.putValue(Action.NAME, "COMPILAR");
         this.putValue(
             Action.ACCELERATOR_KEY,
             KeyStroke.getAWTKeyStroke('E', Event.CTRL_MASK));

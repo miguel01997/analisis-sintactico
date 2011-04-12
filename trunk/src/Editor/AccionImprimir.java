@@ -32,7 +32,7 @@ public class AccionImprimir extends AbstractAction
     public AccionImprimir(JTextComponent areaTexto)
     {
         this.areaTexto = areaTexto;
-        this.putValue(Action.NAME, "Imprimir AST");
+        this.putValue(Action.NAME, "COMPILAR CON IMPRESION DE AST");
         this.putValue(
             Action.ACCELERATOR_KEY,
             KeyStroke.getAWTKeyStroke('I', Event.CTRL_MASK));

@@ -213,9 +213,13 @@ public class Editor
 
         JMenu menuAnalizar = new JMenu("Analizar");
         menuAnalizar.add(analizar);
-        menuAnalizar.add(scannear);
-        menuAnalizar.add(parsear);
+        menuAnalizar.add(new JSeparator());
         menuAnalizar.add(imprimir);
+        menuAnalizar.add(new JSeparator());
+        menuAnalizar.add(scannear);
+        //menuAnalizar.add(parsear);
+
+        
         barraMenu.add(menuAnalizar);
 
 
